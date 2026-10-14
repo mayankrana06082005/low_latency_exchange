@@ -54,6 +54,12 @@ void SessionTracer::frame(const std::string& who, bool outbound, const Message& 
         ledger_.onSent(who, msg);
     } else {
         ledger_.onReceived(who, msg);
+        const uint64_t id = msg.header.client_id;
+        auto known = known_ids_.find(who);
+        if (id != 0 && (known == known_ids_.end() || known->second != id)) {
+            known_ids_[who] = id;
+            if (on_client_id_) on_client_id_(who, id);
+        }
     }
     std::string text = describe(msg);
     if (!remark.empty()) text += "   <- " + remark;

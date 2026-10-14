@@ -8,6 +8,7 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
   /home/mayank/Desktop/CN/include/core/LatencyRecorder.hpp \
   /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
   /home/mayank/Desktop/CN/include/core/OrderBook.hpp \
+  /home/mayank/Desktop/CN/include/core/ServerTrace.hpp \
   /home/mayank/Desktop/CN/include/core/SpscQueue.hpp \
   /home/mayank/Desktop/CN/include/core/WorkItem.hpp \
   /home/mayank/Desktop/CN/include/core/Worker.hpp \
@@ -87,6 +88,7 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/std_mutex.h \
   /usr/include/c++/13/bits/std_thread.h \
   /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
@@ -113,6 +115,7 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
+  /usr/include/c++/13/bits/unique_lock.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
@@ -151,6 +154,7 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
   /usr/include/c++/13/list \
   /usr/include/c++/13/map \
   /usr/include/c++/13/memory \
+  /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/numeric \
   /usr/include/c++/13/pstl/execution_defs.h \
@@ -320,6 +324,7 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
@@ -357,6 +362,8 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
@@ -439,6 +446,10 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/x86_64-linux-gnu/bits/socket.h:
 
 /usr/include/x86_64-linux-gnu/bits/sockaddr.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigstksz.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigstack.h:
 
 /usr/include/c++/13/clocale:
 
@@ -564,6 +575,8 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/asm-generic/socket.h:
 
+/usr/include/c++/13/bits/std_mutex.h:
+
 /usr/include/asm-generic/sockios.h:
 
 /usr/include/c++/13/bits/move.h:
@@ -596,6 +609,10 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/new:
 
+/usr/include/x86_64-linux-gnu/bits/sigthread.h:
+
+/home/mayank/Desktop/CN/include/core/Worker.hpp:
+
 /usr/include/c++/13/vector:
 
 /home/mayank/Desktop/CN/include/net/UdpPublisher.hpp:
@@ -611,18 +628,6 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/tr1/special_function_util.h:
 
 /usr/include/stdc-predef.h:
-
-/usr/include/c++/13/bits/stl_raw_storage_iter.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/usr/include/c++/13/algorithm:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
-
-/home/mayank/Desktop/CN/include/net/StreamCodec.hpp:
-
-/usr/include/c++/13/tr1/modified_bessel_func.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
@@ -686,6 +691,18 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 
 /home/mayank/Desktop/CN/include/net/ClientRegistry.hpp:
 
+/usr/include/c++/13/bits/stl_raw_storage_iter.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
+
+/home/mayank/Desktop/CN/include/net/StreamCodec.hpp:
+
+/usr/include/c++/13/tr1/modified_bessel_func.tcc:
+
+/usr/include/c++/13/algorithm:
+
 /usr/include/c++/13/bits/hash_bytes.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
@@ -701,6 +718,10 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/bits/atomic_lockfree_defines.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/c++/13/bits/unique_lock.h:
+
+/usr/include/c++/13/mutex:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
@@ -723,6 +744,10 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/bits/node_handle.h:
 
 /usr/include/c++/13/bits/predefined_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/signum-generic.h:
+
+/usr/include/c++/13/iosfwd:
 
 /usr/include/c++/13/bits/specfun.h:
 
@@ -773,6 +798,8 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/bits/exception_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/home/mayank/Desktop/CN/include/core/ServerTrace.hpp:
 
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
 
@@ -995,15 +1022,3 @@ CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o: /home/mayank/Desktop/
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
-
-/usr/include/c++/13/iosfwd:
-
-/usr/include/x86_64-linux-gnu/bits/signum-generic.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigstack.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigstksz.h:
-
-/home/mayank/Desktop/CN/include/core/Worker.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/sigthread.h:

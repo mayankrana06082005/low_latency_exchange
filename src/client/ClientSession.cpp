@@ -46,11 +46,11 @@ std::optional<Message> ClientSession::request(MsgType type, Payload payload, int
     const uint32_t req_id = next_req_id_++;
     Message msg = makeMessage(type, req_id, client_id_, std::move(payload));
     msg.header.callback_port = callback_port_;
+    trace(TraceEvent::Sent, &msg);  // before sending, so it prints before the server reacts
     if (!sendFrame(msg)) {
         dropConnection();
         return std::nullopt;
     }
-    trace(TraceEvent::Sent, &msg);
     return awaitResponse(req_id, timeout_ms);
 }
 

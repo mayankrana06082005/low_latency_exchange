@@ -19,6 +19,7 @@ struct ExchangeConfig {
     std::chrono::milliseconds snapshot_interval{100};  // interval, or dt_safety for Ewma
     size_t queue_capacity = 4096;
     core::MarketConfig market = core::MarketConfig::defaults();
+    core::ServerTrace* trace = nullptr;  // server-side event log for dispatcher and workers
 };
 
 // Wires the whole server: one dispatcher thread plus one worker thread per

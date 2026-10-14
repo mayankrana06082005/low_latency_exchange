@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/mayank/Desktop/CN/src/codec/TextCodec.cpp" "CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o.d"
   "/home/mayank/Desktop/CN/src/core/MarketConfig.cpp" "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o.d"
   "/home/mayank/Desktop/CN/src/core/OrderBook.cpp" "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o.d"
+  "/home/mayank/Desktop/CN/src/core/ServerTrace.cpp" "CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o.d"
   "/home/mayank/Desktop/CN/src/core/Worker.cpp" "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o.d"
   "/home/mayank/Desktop/CN/src/net/ClientRegistry.cpp" "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o.d"
   "/home/mayank/Desktop/CN/src/net/Dispatcher.cpp" "CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o" "gcc" "CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o.d"

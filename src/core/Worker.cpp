@@ -23,7 +23,7 @@ uint64_t unixMicros() {
 }  // namespace
 
 Worker::Worker(WorkerConfig cfg, SpscQueue<WorkItem>& in, SpscQueue<WorkerOutput>& out)
-    : cfg_(std::move(cfg)), in_(in), out_(out) {
+    : cfg_(std::move(cfg)), in_(in), out_(out), actor_("worker " + std::to_string(cfg_.worker_id)) {
     for (const GroupConfig& g : cfg_.groups) {
         for (const SymbolConfig& s : g.symbols) {
             tickers_[s.symbol_id] = TickerState{OrderBook{}, g.group_id, toTicker(s.ticker)};
@@ -90,6 +90,21 @@ void Worker::handleOrder(const WorkItem& item) {
         updates.push_back(std::move(update));
     }
 
+    if (cfg_.trace != nullptr) {
+        std::string text = std::string(nameOf(item.type)) + " req=" + std::to_string(item.req_id) + " " +
+                           tickerName(it->second.name) + " " + std::to_string(item.volume) + " @ " +
+                           std::to_string(item.price) + " from " + cfg_.trace->client(item.client_id) +
+                           " -> order " + std::to_string(id) + " " + nameOf(ack.status);
+        for (const Trade& t : ack.trades) {
+            text += ", trade " + std::to_string(t.vol) + "@" + std::to_string(t.price) + " vs resting order " +
+                    std::to_string(t.counterpart_id);
+        }
+        log(text + "  [" + bookText(it->second) + "]");
+        for (const OrderAck& u : updates) {
+            log("ORDER_UPDATE order " + std::to_string(u.order_id) + " " + nameOf(u.status) + " remaining " +
+                std::to_string(u.remaining_vol) + " -> out queue (owner unknown here; dispatcher looks it up)");
+        }
+    }
     emit(makeMessage(MsgType::OrderAck, item.req_id, item.client_id, std::move(ack)));
     for (OrderAck& u : updates) emit(makeMessage(MsgType::OrderUpdate, 0, 0, std::move(u)));
 }
@@ -98,8 +113,15 @@ void Worker::handleCancel(const WorkItem& item) {
     auto it = order_symbol_.find(item.order_id);
     Volume cancelled = 0;
     if (it == order_symbol_.end() || !tickers_[it->second].book.cancel(item.order_id, cancelled)) {
+        if (cfg_.trace != nullptr) {
+            log("CANCEL order " + std::to_string(item.order_id) + " -> not in the book (already filled), ERROR ORDER_NOT_FOUND");
+        }
         emit(makeMessage(MsgType::Error, item.req_id, item.client_id, Error{ErrorCode::OrderNotFound}));
         return;
+    }
+    if (cfg_.trace != nullptr) {
+        log("CANCEL order " + std::to_string(item.order_id) + " -> removed " + std::to_string(cancelled) +
+            " from the book, CANCEL_ACK  [" + bookText(tickers_[it->second]) + "]");
     }
     order_symbol_.erase(it);
     emit(makeMessage(MsgType::CancelAck, item.req_id, item.client_id,
@@ -108,6 +130,11 @@ void Worker::handleCancel(const WorkItem& item) {
 
 void Worker::handleSubscription(const WorkItem& item) {
     const uint64_t key = net::endpointKey(item.endpoint);
+    if (cfg_.trace != nullptr) {
+        log(std::string(item.type == MsgType::Subscribe ? "subscribe " : "unsubscribe ") +
+            net::toString(item.endpoint) + " groups " + groupSet(item.group_mask) +
+            " (snapshots go to endpoints; this worker knows no clients)");
+    }
     if (item.type == MsgType::Subscribe) {
         Subscriber& s = subscribers_[key];
         s.addr = item.endpoint;
@@ -170,6 +197,17 @@ void Worker::emit(Message&& msg) {
         if (running_ != nullptr && !running_->load(std::memory_order_relaxed)) return;
         std::this_thread::yield();
     }
+}
+
+std::string Worker::bookText(const TickerState& t) const {
+    std::array<Level, BOOK_LEVELS> bids{};
+    std::array<Level, BOOK_LEVELS> asks{};
+    const uint8_t nb = t.book.topLevels(Side::Buy, bids);
+    const uint8_t na = t.book.topLevels(Side::Sell, asks);
+    auto best = [](uint8_t n, const std::array<Level, BOOK_LEVELS>& side) {
+        return n == 0 ? std::string("-") : std::to_string(side[0].vol) + "@" + std::to_string(side[0].price);
+    };
+    return "book " + tickerName(t.name) + ": best bid " + best(nb, bids) + ", best ask " + best(na, asks);
 }
 
 uint64_t Worker::nextId(uint64_t& counter) const {

@@ -49,6 +49,7 @@ add_library(exchange_core
     src/core/MarketConfig.cpp
     src/core/OrderBook.cpp
     src/core/Worker.cpp
+    src/core/ServerTrace.cpp
     src/net/Socket.cpp
     src/net/FrameReader.cpp
     src/net/StreamCodec.cpp

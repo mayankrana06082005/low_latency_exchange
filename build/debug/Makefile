@@ -646,6 +646,30 @@ src/core/OrderBook.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.s
 .PHONY : src/core/OrderBook.cpp.s
 
+src/core/ServerTrace.o: src/core/ServerTrace.cpp.o
+.PHONY : src/core/ServerTrace.o
+
+# target to build an object file
+src/core/ServerTrace.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o
+.PHONY : src/core/ServerTrace.cpp.o
+
+src/core/ServerTrace.i: src/core/ServerTrace.cpp.i
+.PHONY : src/core/ServerTrace.i
+
+# target to preprocess a source file
+src/core/ServerTrace.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.i
+.PHONY : src/core/ServerTrace.cpp.i
+
+src/core/ServerTrace.s: src/core/ServerTrace.cpp.s
+.PHONY : src/core/ServerTrace.s
+
+# target to generate assembly for a file
+src/core/ServerTrace.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.s
+.PHONY : src/core/ServerTrace.cpp.s
+
 src/core/Worker.o: src/core/Worker.cpp.o
 .PHONY : src/core/Worker.o
 
@@ -1146,6 +1170,9 @@ help:
 	@echo "... src/core/OrderBook.o"
 	@echo "... src/core/OrderBook.i"
 	@echo "... src/core/OrderBook.s"
+	@echo "... src/core/ServerTrace.o"
+	@echo "... src/core/ServerTrace.i"
+	@echo "... src/core/ServerTrace.s"
 	@echo "... src/core/Worker.o"
 	@echo "... src/core/Worker.i"
 	@echo "... src/core/Worker.s"

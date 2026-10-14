@@ -43,6 +43,12 @@
 },
 {
   "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o -c /home/mayank/Desktop/CN/src/core/ServerTrace.cpp",
+  "file": "/home/mayank/Desktop/CN/src/core/ServerTrace.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
   "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o -c /home/mayank/Desktop/CN/src/net/Socket.cpp",
   "file": "/home/mayank/Desktop/CN/src/net/Socket.cpp",
   "output": "CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o"

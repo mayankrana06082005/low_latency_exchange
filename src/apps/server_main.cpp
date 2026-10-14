@@ -21,8 +21,10 @@ void usage() {
     std::puts(
         "usage: exchange_server [--port N] [--text-port N|off] [--idle fixed|never] [--idle-ms N]\n"
         "                       [--grace-ms N] [--push-timeout-ms N] [--snapshot-ms N]\n"
-        "                       [--snapshot-policy fixed|ewma] [--record-latency on]");
+        "                       [--snapshot-policy fixed|ewma] [--record-latency on] [--trace on]");
 }
+
+bool g_trace = false;
 
 bool parseArgs(int argc, char** argv, server::ExchangeConfig& cfg) {
     using std::chrono::milliseconds;
@@ -42,6 +44,8 @@ bool parseArgs(int argc, char** argv, server::ExchangeConfig& cfg) {
             } else {
                 return false;
             }
+        } else if (arg == "--trace") {
+            g_trace = std::strcmp(value, "on") == 0;
         } else if (arg == "--record-latency") {
             cfg.dispatcher.record_dispatch_latency = std::strcmp(value, "on") == 0;
         } else if (arg == "--idle") {
@@ -88,6 +92,11 @@ int main(int argc, char** argv) {
     if (!parseArgs(argc, argv, cfg)) {
         usage();
         return 2;
+    }
+    core::ServerTrace trace;
+    if (g_trace) {
+        setvbuf(stdout, nullptr, _IOLBF, 0);  // show each event line immediately
+        cfg.trace = &trace;
     }
     server::Exchange exchange(cfg);
     if (!exchange.start()) {

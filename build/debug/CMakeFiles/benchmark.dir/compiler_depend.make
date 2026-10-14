@@ -12,6 +12,7 @@ CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o: /home/mayank/Desktop/CN/
   /home/mayank/Desktop/CN/include/core/LatencyRecorder.hpp \
   /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
   /home/mayank/Desktop/CN/include/core/OrderBook.hpp \
+  /home/mayank/Desktop/CN/include/core/ServerTrace.hpp \
   /home/mayank/Desktop/CN/include/core/SpscQueue.hpp \
   /home/mayank/Desktop/CN/include/core/WorkItem.hpp \
   /home/mayank/Desktop/CN/include/core/Worker.hpp \
@@ -92,6 +93,7 @@ CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o: /home/mayank/Desktop/CN/
   /usr/include/c++/13/bits/specfun.h \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/std_function.h \
+  /usr/include/c++/13/bits/std_mutex.h \
   /usr/include/c++/13/bits/std_thread.h \
   /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
@@ -118,6 +120,7 @@ CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o: /home/mayank/Desktop/CN/
   /usr/include/c++/13/bits/stringfwd.h \
   /usr/include/c++/13/bits/this_thread_sleep.h \
   /usr/include/c++/13/bits/uniform_int_dist.h \
+  /usr/include/c++/13/bits/unique_lock.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/unordered_map.h \
   /usr/include/c++/13/bits/uses_allocator.h \
@@ -155,6 +158,7 @@ CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o: /home/mayank/Desktop/CN/
   /usr/include/c++/13/list \
   /usr/include/c++/13/map \
   /usr/include/c++/13/memory \
+  /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/numeric \
   /usr/include/c++/13/optional \
@@ -296,6 +300,7 @@ CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o: /home/mayank/Desktop/CN/
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
@@ -796,8 +801,6 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
-
 /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
@@ -874,6 +877,8 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
 
+/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
@@ -920,7 +925,11 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
-/usr/include/c++/13/clocale:
+/usr/include/c++/13/bits/locale_classes.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/c++/13/variant:
 
@@ -947,8 +956,6 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 /usr/include/c++/13/bits/stl_tree.h:
 
 /usr/include/c++/13/bits/stl_numeric.h:
-
-/usr/include/c++/13/cerrno:
 
 /usr/include/c++/13/debug/assertions.h:
 
@@ -1001,6 +1008,8 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp:
 
 /usr/include/c++/13/bits/memoryfwd.h:
+
+/usr/include/c++/13/clocale:
 
 /usr/include/c++/13/streambuf:
 
@@ -1096,12 +1105,6 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /home/mayank/Desktop/CN/include/core/LatencyRecorder.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
-/usr/include/math.h:
-
-/usr/include/x86_64-linux-gnu/asm/sockios.h:
-
 /usr/include/c++/13/bits/string_view.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
@@ -1152,8 +1155,6 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /usr/include/c++/13/tr1/poly_hermite.tcc:
 
-/usr/include/c++/13/chrono:
-
 /usr/include/c++/13/bits/stl_algo.h:
 
 /usr/include/c++/13/cstddef:
@@ -1173,6 +1174,16 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 /home/mayank/Desktop/CN/include/net/ByteBuffer.hpp:
 
 /usr/include/c++/13/bits/stl_construct.h:
+
+/usr/include/c++/13/bits/std_mutex.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/include/math.h:
+
+/usr/include/x86_64-linux-gnu/asm/sockios.h:
+
+/home/mayank/Desktop/CN/include/core/ServerTrace.hpp:
 
 /usr/include/c++/13/bits/concept_check.h:
 
@@ -1196,10 +1207,6 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
-
-/home/mayank/Desktop/CN/include/net/StreamCodec.hpp:
-
 /usr/include/c++/13/tr1/modified_bessel_func.tcc:
 
 /usr/include/c++/13/algorithm:
@@ -1221,6 +1228,10 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 /usr/include/c++/13/bits/atomic_lockfree_defines.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/c++/13/bits/unique_lock.h:
+
+/usr/include/c++/13/mutex:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
@@ -1271,6 +1282,14 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
 
 /usr/include/c++/13/typeinfo:
+
+/usr/include/c++/13/cerrno:
+
+/home/mayank/Desktop/CN/include/net/StreamCodec.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
+
+/usr/include/c++/13/chrono:
 
 /usr/include/c++/13/cmath:
 
@@ -1496,12 +1515,6 @@ CMakeFiles/benchmark.dir/src/bench/Report.cpp.o: /home/mayank/Desktop/CN/src/ben
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/c++/13/bits/locale_classes.h:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
+/usr/include/x86_64-linux-gnu/bits/timex.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
-/usr/include/x86_64-linux-gnu/bits/timex.h:

@@ -107,8 +107,10 @@ void Dispatcher::acceptAll(int listen_fd, Protocol protocol) {
         if (fd < 0) return;
         setNonBlocking(fd);
         setNoDelay(fd);
-        touch(addConnection(fd, peer, ConnState::Open, false, protocol));
+        Connection& c = addConnection(fd, peer, ConnState::Open, false, protocol);
+        touch(c);
         stats_.accepted.fetch_add(1, std::memory_order_relaxed);
+        if (tracing()) log("conn#" + std::to_string(c.conn_id) + " accepted from " + toString(peer) + " (" + nameOf(protocol) + " port)");
     }
 }
 
@@ -116,7 +118,7 @@ void Dispatcher::readFrom(Connection& c) {
     auto space = c.codec->prepare(kReadChunk);
     ssize_t n = ::recv(c.fd, space.first, space.second, 0);
     if (n == 0 || (n < 0 && !wouldBlock())) {
-        closeConnection(c);
+        closeConnection(c, n == 0 ? "peer closed it" : "recv error");
         return;
     }
     if (n < 0) return;
@@ -129,18 +131,20 @@ void Dispatcher::readFrom(Connection& c) {
         if (st == FrameStatus::NeedMore) break;
         stats_.frames_in.fetch_add(1, std::memory_order_relaxed);
         if (st == FrameStatus::Frame) {
+            if (tracing()) trace_req_ = who(c) + " " + summary(msg);
             handleFrame(c, msg);
         } else if (st == FrameStatus::BadFrame) {
+            if (tracing()) trace_req_ = who(c) + " frame of unknown type";
             touch(c);
             replyError(c, msg.header.req_id, ErrorCode::UnknownType);
         } else {
             // Bad version, oversize length or malformed payload: close (NFR-4).
-            if (c.codec->lastError() == codec::DecodeStatus::UnsupportedVersion) {
-                replyError(c, 0, ErrorCode::UnsupportedVersion);
-            }
+            const bool bad_version = c.codec->lastError() == codec::DecodeStatus::UnsupportedVersion;
+            if (tracing()) trace_req_ = who(c) + (bad_version ? " bad protocol version" : " malformed frame or oversize length");
+            if (bad_version) replyError(c, 0, ErrorCode::UnsupportedVersion);
             flushConnection(c);
             stats_.protocol_closes.fetch_add(1, std::memory_order_relaxed);
-            closeConnection(c);
+            closeConnection(c, "protocol error");
         }
     }
 }
@@ -149,6 +153,7 @@ void Dispatcher::handleFrame(Connection& c, const Message& msg) {
     const FrameHeader& h = msg.header;
     ClientEntry* e = resolveClient(c, h);
     if (e == nullptr) return;
+    if (tracing()) trace_req_ = who(c) + " " + summary(msg);  // now with the client's name
     touch(c);
     e->callback_port = h.callback_port;
 
@@ -156,7 +161,10 @@ void Dispatcher::handleFrame(Connection& c, const Message& msg) {
         case MsgType::Bid:
         case MsgType::Ask: handleOrder(c, *e, msg); break;
         case MsgType::Cancel: handleCancel(c, *e, msg); break;
-        case MsgType::ListFeed: reply(c, h.req_id, MsgType::ListFeedRsp, list_feed_); break;
+        case MsgType::ListFeed:
+            if (tracing()) logRequest("LIST_FEED_RSP");
+            reply(c, h.req_id, MsgType::ListFeedRsp, list_feed_);
+            break;
         case MsgType::Subscribe: handleSubscribe(c, *e, msg); break;
         case MsgType::Unsubscribe: handleUnsubscribe(c, *e, msg); break;
         default: replyError(c, h.req_id, ErrorCode::UnknownType); break;  // server-side type
@@ -169,13 +177,18 @@ ClientEntry* Dispatcher::resolveClient(Connection& c, const FrameHeader& h) {
         if (h.client_id == 0 || h.client_id == c.client->client_id) return c.client;
         replyError(c, h.req_id, ErrorCode::ClientMismatch);
         flushConnection(c);
-        closeConnection(c);
+        closeConnection(c, "client_id mismatch");
         return nullptr;
     }
-    ClientEntry* e = h.client_id == 0 ? &registry_.create() : registry_.find(h.client_id);
+    const bool is_new = h.client_id == 0;
+    ClientEntry* e = is_new ? &registry_.create() : registry_.find(h.client_id);
     if (e == nullptr) {
         replyError(c, h.req_id, ErrorCode::UnknownClient);
         return nullptr;
+    }
+    if (tracing()) {
+        log(who(c) + (is_new ? " first frame has client_id 0 -> registered new client " + clientName(e->client_id)
+                             : " client_id in header -> bound to existing client " + clientName(e->client_id)));
     }
     bindConnection(*e, c);
     return e;
@@ -183,9 +196,11 @@ ClientEntry* Dispatcher::resolveClient(Connection& c, const FrameHeader& h) {
 
 void Dispatcher::bindConnection(ClientEntry& e, Connection& c) {
     Connection* old = findConn(e.conn_id);
-    if (old != nullptr && old != &c) closeConnection(*old);  // newest wins
+    if (old != nullptr && old != &c) closeConnection(*old, "replaced by the client's newer connection");  // newest wins
     Connection* pending_push = findConn(e.push_conn_id);
-    if (pending_push != nullptr && pending_push != &c) closeConnection(*pending_push);
+    if (pending_push != nullptr && pending_push != &c) {
+        closeConnection(*pending_push, "push no longer needed, client reconnected");
+    }
     e.push_conn_id = 0;
     e.conn_id = c.conn_id;
     c.client = &e;
@@ -219,6 +234,8 @@ void Dispatcher::handleOrder(Connection& c, ClientEntry& e, const Message& msg) 
     item.volume = o.volume;
     if (!sendToWorker(static_cast<size_t>(w), std::move(item))) {
         replyError(c, req, ErrorCode::QueueFull);
+    } else if (tracing()) {
+        logRequest("validated, pushed to worker " + std::to_string(w) + " queue");
     }
 }
 
@@ -240,7 +257,12 @@ void Dispatcher::handleCancel(Connection& c, ClientEntry& e, const Message& msg)
     item.client_id = e.client_id;
     item.req_id = req;
     item.order_id = order_id;
-    if (!sendToWorker(w, std::move(item))) replyError(c, req, ErrorCode::QueueFull);
+    if (!sendToWorker(w, std::move(item))) {
+        replyError(c, req, ErrorCode::QueueFull);
+    } else if (tracing()) {
+        logRequest("owner check ok (order table), worker id from order_id top byte -> worker " +
+                   std::to_string(w) + " queue");
+    }
 }
 
 void Dispatcher::handleSubscribe(Connection& c, ClientEntry& e, const Message& msg) {
@@ -260,7 +282,13 @@ void Dispatcher::handleSubscribe(Connection& c, ClientEntry& e, const Message& m
     // An endpoint belongs to one client: a newer claimant evicts the old owner.
     auto owner = endpoint_owner_.find(key);
     if (owner != endpoint_owner_.end() && owner->second != e.client_id) {
-        if (ClientEntry* prev = registry_.find(owner->second)) dropSubscriptions(*prev);
+        if (ClientEntry* prev = registry_.find(owner->second)) {
+            if (tracing()) {
+                log("UDP endpoint " + toString(endpoint) + " was owned by " + clientName(prev->client_id) +
+                    " -> its subscriptions are dropped (newest claimant wins)");
+            }
+            dropSubscriptions(*prev);
+        }
     }
 
     const uint32_t newly = s.group_mask & ~e.group_mask;
@@ -275,6 +303,10 @@ void Dispatcher::handleSubscribe(Connection& c, ClientEntry& e, const Message& m
     e.udp_endpoint = endpoint;
     e.group_mask = total;
     endpoint_owner_[key] = e.client_id;
+    if (tracing()) {
+        logRequest("UDP endpoint " + toString(endpoint) + ", subscribe control item to " + workersFor(newly) +
+                   ", SUBSCRIBE_ACK " + core::groupSet(newly));
+    }
     reply(c, req, MsgType::SubscribeAck, GroupMask{newly});
 }
 
@@ -282,6 +314,10 @@ void Dispatcher::handleUnsubscribe(Connection& c, ClientEntry& e, const Message&
     const uint32_t removed = std::get<GroupMask>(msg.payload).group_mask & e.group_mask;
     if (removed != 0) sendControl(MsgType::Unsubscribe, e.udp_endpoint, removed);
     e.group_mask &= ~removed;
+    if (tracing()) {
+        logRequest("removed " + core::groupSet(removed) +
+                   (removed != 0 ? ", unsubscribe control item to " + workersFor(removed) : " (nothing to remove)"));
+    }
     reply(c, msg.header.req_id, MsgType::UnsubscribeAck, GroupMask{removed});
 }
 
@@ -291,6 +327,7 @@ void Dispatcher::reply(Connection& c, uint32_t req_id, MsgType type, Payload pay
 }
 
 void Dispatcher::replyError(Connection& c, uint32_t req_id, ErrorCode code) {
+    if (tracing()) logRequest(std::string("ERROR ") + nameOf(code) + " (never reaches a worker)");
     reply(c, req_id, MsgType::Error, Error{code});
 }
 
@@ -336,7 +373,7 @@ void Dispatcher::drainWorkers() {
     for (size_t w = 0; w < workers_.size(); ++w) {
         retryPendingControl(w);
         for (int i = 0; i < cfg_.items_per_queue && workers_[w].out->tryPop(msg); ++i) {
-            routeWorkerOutput(msg);
+            routeWorkerOutput(msg, w);
         }
     }
 }
@@ -348,8 +385,9 @@ void Dispatcher::retryPendingControl(size_t w) {
     }
 }
 
-void Dispatcher::routeWorkerOutput(Message& msg) {
+void Dispatcher::routeWorkerOutput(Message& msg, size_t worker) {
     uint64_t client_id = msg.header.client_id;
+    if (tracing()) trace_out_ = "from worker " + std::to_string(worker) + ": " + summary(msg);
     int resting_delta = 0;
 
     if (msg.header.type == MsgType::OrderAck) {
@@ -362,8 +400,12 @@ void Dispatcher::routeWorkerOutput(Message& msg) {
         // Workers do not know clients (D7): resolve the owner from order_id.
         const auto& upd = std::get<OrderAck>(msg.payload);
         auto owner = order_owner_.find(upd.order_id);
-        if (owner == order_owner_.end()) return;
+        if (owner == order_owner_.end()) {
+            if (tracing()) log(trace_out_ + "  -> owner unknown, dropped");
+            return;
+        }
         client_id = owner->second;
+        if (tracing()) trace_out_ += ", owner from order table = " + clientName(client_id);
         if (isTerminal(upd.status)) {
             order_owner_.erase(owner);
             resting_delta = -1;
@@ -386,6 +428,7 @@ void Dispatcher::deliver(ClientEntry& e, Message& msg) {
     // A draining connection still answers requests, but new unsolicited updates
     // go to the mailbox so they cannot race the close.
     if (c != nullptr && (c->state == ConnState::Open || !unsolicited)) {
+        if (tracing()) log(trace_out_ + "  -> " + who(*c));
         queueFrame(*c, msg);
         return;
     }
@@ -394,13 +437,22 @@ void Dispatcher::deliver(ClientEntry& e, Message& msg) {
     } else if (const auto* cancel = std::get_if<CancelAck>(&msg.payload)) {
         e.mailbox.merge(OrderAck{cancel->order_id, cancel->status, 0, {}});
     } else {
+        if (tracing()) log(trace_out_ + "  -> requester's connection is gone, dropped");
         return;  // an error for a request whose connection is gone has no one to tell
+    }
+    if (tracing()) {
+        log(trace_out_ + "  -> " + (c != nullptr ? "connection is draining" : "no live connection") +
+            ", parked in mailbox (" + std::to_string(e.mailbox.size()) + " order(s) pending)");
     }
     startPush(e);
 }
 
 void Dispatcher::flushMailbox(ClientEntry& e, Connection& c) {
     if (e.mailbox.empty()) return;
+    if (tracing()) {
+        log(clientName(e.client_id) + " mailbox: " + std::to_string(e.mailbox.size()) +
+            " merged ORDER_UPDATE(s) flushed -> " + who(c));
+    }
     for (OrderAck& update : e.mailbox.takeAll()) {
         queueFrame(c, makeMessage(MsgType::OrderUpdate, 0, e.client_id, std::move(update)));
     }
@@ -413,7 +465,7 @@ void Dispatcher::queueFrame(Connection& c, const Message& msg) {
     c.codec->encode(msg, c.wbuf);
     stats_.frames_out.fetch_add(1, std::memory_order_relaxed);
     if (c.wbuf.size() - c.wpos > cfg_.write_buffer_cap) {
-        closeConnection(c);  // slow reader (Section 3.2 backpressure)
+        closeConnection(c, "write buffer over cap (slow reader)");  // Section 3.2 backpressure
         return;
     }
     if (!c.in_write_list) {
@@ -445,7 +497,7 @@ bool Dispatcher::flushConnection(Connection& c) {
         } else if (n < 0 && wouldBlock()) {
             return false;  // kernel buffer full; retry next iteration
         } else {
-            closeConnection(c);
+            closeConnection(c, "send error");
             return true;
         }
     }
@@ -493,6 +545,10 @@ void Dispatcher::beginDrain(Connection& c) {
     const uint64_t client_id = c.client != nullptr ? c.client->client_id : 0;
     queueFrame(c, makeMessage(MsgType::Disconnect, 0, client_id, Disconnect{DisconnectReason::Idle}));
     stats_.disconnects_sent.fetch_add(1, std::memory_order_relaxed);
+    if (tracing()) {
+        log(who(c) + " idle for " + std::to_string(cfg_.idle_timeout.count()) + " ms -> DISCONNECT, draining for " +
+            std::to_string(cfg_.drain_grace.count()) + " ms");
+    }
 }
 
 // ===================================================================== step 5
@@ -506,12 +562,17 @@ void Dispatcher::startPush(ClientEntry& e) {
     int fd = connectTcpNonBlocking(addr, in_progress);
     if (fd < 0) {
         stats_.push_failed.fetch_add(1, std::memory_order_relaxed);
+        if (tracing()) log("push connect to " + toString(addr) + " for " + clientName(e.client_id) + " failed");
         return;  // no retry: next update for this client tries again
     }
     Connection& c = addConnection(fd, addr, in_progress ? ConnState::Connecting : ConnState::Open,
                                   true, e.protocol);
     c.client = &e;
     e.push_conn_id = c.conn_id;
+    if (tracing()) {
+        log(clientName(e.client_id) + " has pending updates -> server opens conn#" + std::to_string(c.conn_id) +
+            " to its callback port " + toString(addr));
+    }
     if (!in_progress) {
         onPushConnected(c);
         return;
@@ -525,7 +586,7 @@ void Dispatcher::finishConnect(Connection& c) {
     socklen_t len = sizeof err;
     if (getsockopt(c.fd, SOL_SOCKET, SO_ERROR, &err, &len) != 0 || err != 0) {
         stats_.push_failed.fetch_add(1, std::memory_order_relaxed);
-        closeConnection(c);  // mailbox is kept
+        closeConnection(c, "push connect refused, mailbox kept");
         return;
     }
     onPushConnected(c);
@@ -538,9 +599,10 @@ void Dispatcher::onPushConnected(Connection& c) {
     e.push_conn_id = 0;
     stats_.push_connected.fetch_add(1, std::memory_order_relaxed);
     if (liveConnection(e) != nullptr) {
-        closeConnection(c);  // the client came back on its own meanwhile
+        closeConnection(c, "push connected but the client is already back");
         return;
     }
+    if (tracing()) log(who(c) + " push connection established -> becomes the client's live session");
     // The push connection becomes the client's live session (D13).
     bindConnection(e, c);
     touch(c);
@@ -557,12 +619,13 @@ void Dispatcher::checkDeadlines() {
             timed_list_[keep++] = id;
             continue;
         }
-        if (c->state == ConnState::Connecting) {
+        const bool connecting = c->state == ConnState::Connecting;
+        if (connecting) {
             stats_.push_failed.fetch_add(1, std::memory_order_relaxed);
         } else {
             flushConnection(*c);
         }
-        closeConnection(*c);
+        closeConnection(*c, connecting ? "push connect timed out, mailbox kept" : "drain grace over");
     }
     timed_list_.resize(keep);
 }
@@ -593,8 +656,9 @@ Connection* Dispatcher::liveConnection(ClientEntry& e) {
     return c->state == ConnState::Open || c->state == ConnState::Draining ? c : nullptr;
 }
 
-void Dispatcher::closeConnection(Connection& c) {
+void Dispatcher::closeConnection(Connection& c, const char* reason) {
     if (c.state == ConnState::Closed) return;
+    if (tracing() && reason != nullptr) log(who(c) + " closed: " + reason);
     c.state = ConnState::Closed;
     untrackIdle(c);
     close_list_.push_back(c.conn_id);
@@ -621,6 +685,44 @@ void Dispatcher::sweepClosed() {
         if (lost_session && !e->mailbox.empty()) startPush(*e);
     }
     close_list_.clear();
+}
+
+// ================================================================ trace helpers
+
+std::string Dispatcher::who(const Connection& c) const {
+    return "conn#" + std::to_string(c.conn_id) + " " + (c.client != nullptr ? clientName(c.client->client_id) : "(new)");
+}
+
+std::string Dispatcher::workersFor(uint32_t mask) const {
+    std::string s;
+    for (size_t w = 0; w < workers_.size(); ++w) {
+        if (!(mask & workers_[w].group_mask)) continue;
+        s += (s.empty() ? "worker " : ",") + std::to_string(w);
+    }
+    return s.empty() ? "no worker" : s;
+}
+
+std::string Dispatcher::summary(const Message& m) const {
+    std::string s = std::string(nameOf(m.header.type));
+    if (m.header.req_id != 0) s += " req=" + std::to_string(m.header.req_id);
+    if (const auto* o = std::get_if<OrderRequest>(&m.payload)) {
+        s += " " + symbols_->nameOf(o->symbol_id) + " " + std::to_string(o->volume) + " @ " + std::to_string(o->price);
+    } else if (const auto* c = std::get_if<CancelRequest>(&m.payload)) {
+        s += " order " + std::to_string(c->order_id);
+    } else if (const auto* sub = std::get_if<SubscribeRequest>(&m.payload)) {
+        s += " groups " + core::groupSet(sub->group_mask) + " udp port " + std::to_string(sub->udp_port);
+    } else if (const auto* g = std::get_if<GroupMask>(&m.payload)) {
+        s += " groups " + core::groupSet(g->group_mask);
+    } else if (const auto* a = std::get_if<OrderAck>(&m.payload)) {
+        s += " order " + std::to_string(a->order_id) + " " + nameOf(a->status) + " remaining " +
+             std::to_string(a->remaining_vol);
+        if (!a->trades.empty()) s += " (" + std::to_string(a->trades.size()) + " trade(s))";
+    } else if (const auto* ca = std::get_if<CancelAck>(&m.payload)) {
+        s += " order " + std::to_string(ca->order_id) + " " + nameOf(ca->status);
+    } else if (const auto* e = std::get_if<Error>(&m.payload)) {
+        s += std::string(" ") + nameOf(e->code);
+    }
+    return s;
 }
 
 }  // namespace net

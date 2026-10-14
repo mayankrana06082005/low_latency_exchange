@@ -2,7 +2,9 @@
 
 #include <chrono>
 #include <cstdint>
+#include <functional>
 #include <string>
+#include <unordered_map>
 
 #include "client/ClientSession.hpp"
 #include "client/OrderLedger.hpp"
@@ -23,6 +25,11 @@ public:
                const std::string& remark = "");
     void note(const std::string& who, const std::string& text);
     void setPrinting(bool print) { print_ = print; }
+    // Called when a named client's client_id becomes known (e.g. to label the server trace).
+    void onClientId(std::function<void(const std::string& name, uint64_t client_id)> fn) {
+        on_client_id_ = std::move(fn);
+    }
+    std::chrono::steady_clock::time_point start() const { return start_; }
 
     std::string describe(const wire::Message& msg) const;
     OrderLedger& ledger() { return ledger_; }
@@ -37,6 +44,8 @@ private:
     OrderLedger ledger_;
     bool print_;
     std::chrono::steady_clock::time_point start_;
+    std::function<void(const std::string&, uint64_t)> on_client_id_;
+    std::unordered_map<std::string, uint64_t> known_ids_;
 };
 
 std::string groupList(uint32_t mask);  // 0b101 -> "{0,2}"

@@ -13,6 +13,7 @@
 #include "codec/SymbolTable.hpp"
 #include "core/LatencyRecorder.hpp"
 #include "core/MarketConfig.hpp"
+#include "core/ServerTrace.hpp"
 #include "core/SpscQueue.hpp"
 #include "core/WorkItem.hpp"
 #include "net/ClientRegistry.hpp"
@@ -36,6 +37,7 @@ struct DispatcherConfig {
     // Benchmark 3: time from end of socket read to worker-queue push, per order/cancel.
     bool record_dispatch_latency = false;
     size_t dispatch_latency_capacity = 4 * 1024 * 1024;
+    core::ServerTrace* trace = nullptr;  // server-side event log; nullptr = off
 };
 
 struct DispatcherStats {
@@ -99,7 +101,7 @@ private:
     // Step 2: worker replies out.
     void drainWorkers();
     void retryPendingControl(size_t w);
-    void routeWorkerOutput(wire::Message& msg);
+    void routeWorkerOutput(wire::Message& msg, size_t worker);
     void deliver(ClientEntry& e, wire::Message& msg);
     void flushMailbox(ClientEntry& e, Connection& c);
 
@@ -125,8 +127,17 @@ private:
                               Protocol protocol);
     Connection* findConn(uint64_t conn_id);
     Connection* liveConnection(ClientEntry& e);
-    void closeConnection(Connection& c);
+    void closeConnection(Connection& c, const char* reason = nullptr);
     void sweepClosed();
+
+    // Server-side trace (only called when cfg_.trace is set).
+    bool tracing() const { return cfg_.trace != nullptr; }
+    void log(const std::string& text) const { cfg_.trace->log("dispatcher", text); }
+    void logRequest(const std::string& outcome) const { log(trace_req_ + "  -> " + outcome); }
+    std::string who(const Connection& c) const;
+    std::string clientName(uint64_t client_id) const { return cfg_.trace->client(client_id); }
+    std::string summary(const wire::Message& msg) const;
+    std::string workersFor(uint32_t mask) const;
 
     DispatcherConfig cfg_;
     core::MarketConfig market_;
@@ -159,6 +170,8 @@ private:
     Clock::time_point now_;
     Clock::time_point read_time_;  // when the current read() returned
     core::LatencyRecorder dispatch_latency_;
+    std::string trace_req_;  // "conn#3 alice BID req=5 AAPL 10 @ 100" for the frame being handled
+    std::string trace_out_;  // description of the worker output being routed
     DispatcherStats stats_;
 };
 

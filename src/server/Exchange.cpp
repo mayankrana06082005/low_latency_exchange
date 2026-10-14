@@ -24,13 +24,16 @@ bool Exchange::start() {
         wc.groups = {group};
         wc.snapshot_policy = cfg_.snapshot_policy;
         wc.snapshot_interval = cfg_.snapshot_interval;
+        wc.trace = cfg_.trace;
         workers_.push_back(
             std::make_unique<core::Worker>(wc, *in_queues_.back(), *out_queues_.back()));
         links.push_back(net::WorkerLink{in_queues_.back().get(), out_queues_.back().get(),
                                         1u << group.group_id});
     }
 
-    dispatcher_ = std::make_unique<net::Dispatcher>(cfg_.dispatcher, cfg_.market, links);
+    net::DispatcherConfig dc = cfg_.dispatcher;
+    dc.trace = cfg_.trace;
+    dispatcher_ = std::make_unique<net::Dispatcher>(dc, cfg_.market, links);
     if (!dispatcher_->open()) return false;
 
     running_.store(true);

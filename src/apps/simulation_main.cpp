@@ -3,7 +3,9 @@
 // clients and the dispatcher is traced, order states are tabulated after each
 // trading step, and each expectation prints PASS/FAIL.
 //
-// usage: simulation [--quiet]   (--quiet keeps only checks and the summary)
+// usage: simulation [--quiet | --client-only]
+//   --quiet        only checks and the summary
+//   --client-only  client-side trace only, without the server-side lines
 
 #include <chrono>
 #include <cstdio>
@@ -20,6 +22,7 @@
 #include "codec/BinaryCodec.hpp"
 #include "codec/TextCodec.hpp"
 #include "core/MarketConfig.hpp"
+#include "core/ServerTrace.hpp"
 #include "server/Exchange.hpp"
 
 using namespace wire;
@@ -113,6 +116,7 @@ struct TracedRaw {
 
 int main(int argc, char** argv) {
     const bool quiet = argc > 1 && std::strcmp(argv[1], "--quiet") == 0;
+    const bool client_only = argc > 1 && std::strcmp(argv[1], "--client-only") == 0;
 
     server::ExchangeConfig cfg;
     cfg.dispatcher.port = 0;
@@ -133,6 +137,10 @@ int main(int argc, char** argv) {
         },
         !quiet);
 
+    core::ServerTrace server_trace(trace.start());
+    if (!quiet && !client_only) cfg.trace = &server_trace;
+    trace.onClientId([&server_trace](const std::string& name, uint64_t id) { server_trace.nameClient(id, name); });
+
     server::Exchange exchange(cfg);
     if (!exchange.start()) {
         std::puts("failed to start exchange");
@@ -144,6 +152,10 @@ int main(int argc, char** argv) {
     if (!quiet) {
         std::puts("trace legend:  -->  client sends to dispatcher    <--  dispatcher sends to client");
         std::puts("               <==  dispatcher opened a push connection    -x-  connection closed");
+        if (cfg.trace != nullptr) {
+            std::puts("               | dispatcher | ... and | worker N | ...  server-side events (inside the exchange);");
+            std::puts("               the server shows \"cid ..xxxxxx\" for a client until that client has learned its id");
+        }
     }
 
     ClientSession alice(at), bob(at), carol(at);

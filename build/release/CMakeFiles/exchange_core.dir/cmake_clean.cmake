@@ -19,6 +19,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o.d"
   "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o"
   "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/core/ServerTrace.cpp.o.d"
   "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o"
   "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o.d"
   "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o"

@@ -36,8 +36,9 @@ Run one test case by name (`*` is a wildcard):
 Scripted end-to-end simulation:
 
 ```bash
-./build/debug/simulation            # full trace and order tables
-./build/debug/simulation --quiet    # PASS/FAIL only
+./build/debug/simulation                # client trace + server trace + order tables
+./build/debug/simulation --client-only  # client trace only
+./build/debug/simulation --quiet        # PASS/FAIL only
 ```
 
 Sanitizer builds (`asan`, `ubsan`, `tsan`):
@@ -47,6 +48,34 @@ cmake --preset asan && cmake --build --preset asan && ctest --preset asan
 cmake --preset tsan && cmake --build --preset tsan
 setarch $(uname -m) -R ./build/tsan/unit_tests
 ```
+
+## Live demo
+
+Server (custom protocol on port 9000, HTTP/1.1 + JSON on port 9001):
+
+```bash
+./build/debug/exchange_server                 # quiet
+./build/debug/exchange_server --trace on      # print dispatcher and worker events
+```
+
+Clients, one per terminal:
+
+```bash
+./build/debug/exchange_client --trace on                              # custom protocol
+./build/debug/exchange_client --port 9001 --protocol text --trace on  # HTTP/1.1 + JSON
+```
+
+Client commands: `list`, `bid <TICKER> <price> <vol>`, `ask <TICKER> <price> <vol>`, `cancel <order_id>`, `orders`, `sub <mask>`, `unsub <mask>`, `book`, `wait <ms>`, `help`, `quit`.
+
+The HTTP port also works with curl:
+
+```bash
+curl http://127.0.0.1:9001/feed
+curl -X POST -d '{"ticker":"AAPL","type":"LIMIT","max_price":100,"volume":5}' http://127.0.0.1:9001/order/bid
+```
+
+Server options: `--port`, `--text-port`, `--idle fixed|never`, `--idle-ms`, `--grace-ms`, `--push-timeout-ms`, `--snapshot-ms`, `--snapshot-policy fixed|ewma`, `--record-latency on`, `--trace on`.
+Client options: `--host`, `--port`, `--protocol binary|text`, `--callback-port`, `--udp-port`, `--push off`, `--trace on`.
 
 ## Benchmarks
 

@@ -11,6 +11,7 @@
 #include "core/Ewma.hpp"
 #include "core/MarketConfig.hpp"
 #include "core/OrderBook.hpp"
+#include "core/ServerTrace.hpp"
 #include "core/SpscQueue.hpp"
 #include "core/WorkItem.hpp"
 #include "net/UdpPublisher.hpp"
@@ -30,6 +31,7 @@ struct WorkerConfig {
     std::vector<GroupConfig> groups;  // groups this worker owns
     SnapshotPolicy snapshot_policy = SnapshotPolicy::Fixed;
     std::chrono::milliseconds snapshot_interval{100};  // interval, or dt_safety for Ewma
+    ServerTrace* trace = nullptr;  // server-side event log; nullptr = off
 };
 
 // Single-threaded owner of its order books, order_id counter, subscriber
@@ -67,6 +69,8 @@ private:
     void publishTicker(TickerState& t, std::vector<uint8_t>& buf);
     void emit(wire::Message&& msg);
     uint64_t nextId(uint64_t& counter) const;
+    void log(const std::string& text) const { cfg_.trace->log(actor_.c_str(), text); }
+    std::string bookText(const TickerState& t) const;
 
     WorkerConfig cfg_;
     SpscQueue<WorkItem>& in_;
@@ -81,6 +85,7 @@ private:
     const std::atomic<bool>* running_ = nullptr;
     std::chrono::steady_clock::time_point next_snapshot_;
     Ewma udp_round_;
+    std::string actor_;  // "worker 0", for the trace
     std::atomic<uint64_t> udp_round_us_{0};
 };
 
