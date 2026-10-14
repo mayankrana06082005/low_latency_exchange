@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -fsanitize=undefined -fno-sanitize-recover=all CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o -o simulation  libexchange_core.a 

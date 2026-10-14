@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -fsanitize=thread CMakeFiles/unit_tests.dir/tests/test_main.cpp.o CMakeFiles/unit_tests.dir/tests/test_byte_io.cpp.o CMakeFiles/unit_tests.dir/tests/test_binary_codec.cpp.o CMakeFiles/unit_tests.dir/tests/test_frame_reader.cpp.o CMakeFiles/unit_tests.dir/tests/test_core.cpp.o CMakeFiles/unit_tests.dir/tests/test_integration.cpp.o -o unit_tests  libexchange_core.a 

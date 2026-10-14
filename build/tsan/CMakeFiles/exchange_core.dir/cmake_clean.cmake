@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o.d"
+  "CMakeFiles/exchange_core.dir/src/wire/Messages.cpp.o"
+  "CMakeFiles/exchange_core.dir/src/wire/Messages.cpp.o.d"
+  "libexchange_core.a"
+  "libexchange_core.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/exchange_core.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

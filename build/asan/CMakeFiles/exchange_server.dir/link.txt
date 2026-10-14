@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -fsanitize=address -fno-omit-frame-pointer CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o -o exchange_server  libexchange_core.a 

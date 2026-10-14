@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -fsanitize=thread CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o -o exchange_server  libexchange_core.a 

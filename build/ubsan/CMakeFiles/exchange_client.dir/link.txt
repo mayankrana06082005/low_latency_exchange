@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -fsanitize=undefined -fno-sanitize-recover=all CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o -o exchange_client  libexchange_core.a 

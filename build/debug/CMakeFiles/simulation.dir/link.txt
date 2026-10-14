@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o -o simulation  libexchange_core.a 
