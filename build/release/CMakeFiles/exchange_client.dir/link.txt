@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o -o exchange_client  libexchange_core.a 

@@ -1,6 +1,6 @@
 # Low Latency Trading Exchange: Protocol Design and Prototype Plan
 
-Status: draft v0.5 (in review). Protocol design closed except open review items. Section 11 holds Phase 0 setup questions only.
+Status: v0.5. Phases 0-9 implemented (Section 12); review items 4-14 still open. Section 11 holds build setup.
 Scope: networking prototype only (TCP channel, UDP channel, dispatcher, workers). Order book logic is stubbed until Phase 9.
 
 ## 1. Goals
@@ -344,10 +344,50 @@ Report as tables plus one latency histogram per codec.
 - NFR-2 (matching never blocked by UDP) is violated by design in this prototype; see Section 3.3.
 - NFR-3 asks for only 250 operations per second per worker, which is orders of magnitude below what this design should reach. Consider restating the target.
 
-q1: latest cmake, c++ 17. dont overkill on the tools, keep them simple. cmake should be straightforward and easily buildable. q2: testfremework is simple doctest. layout is fine. q4. client library in c++ only for now. update this information in the implementation doc. do not do any coding. also the repo structure should be simple:
+## 11. Build Setup and Repository Layout
 
-/build (initiallly empty, filled with binaries on running)  
-/include (contains all headers)  
-/src (cpp files)  
-/tests  
-CMAKE related files and testing related files
+- CMake >= 3.20, C++17, no other build tools. Presets: `debug`, `release` (use for benchmarks), `asan`, `ubsan`, `tsan`.
+- Tests use doctest. The text baseline uses nlohmann/json (header only). Both are fetched and pinned by CMake on the first configure.
+- Client library in C++ only.
+- Layout: `build/` (generated), `include/` (headers), `src/` (sources), `tests/`, plus `CMakeLists.txt` and `CMakePresets.json`.
+- On Linux kernels with high ASLR entropy, TSan binaries must run under `setarch $(uname -m) -R`.
+
+## 12. Implementation Status (v0.5)
+
+All phases 0-9 are implemented. Phase 10 (pro-rata book) remains out of scope; the worker uses a price-time stub book that exists to generate fills.
+
+Programs: `exchange_server`, `exchange_client` (interactive), `simulation` (scripted, 47 checks with full frame trace), `benchmark` (Section 8), `unit_tests` (49 test cases). All pass under ASan, UBSan and TSan.
+
+### 12.1 Deviations from the plan
+
+- **Text `req_id`.** Clients send a `Request-ID` header and the server echoes it. The plan's per-connection server counter assumed HTTP's in-order responses. Replies from different workers can complete out of order, so position-based pairing would mismatch. The counter is kept as a fallback for clients that send no `Request-ID`, such as curl.
+- **Text responses.** HTTP responses carry no method, so the response type is recovered from the body: `remaining_vol` means ORDER_ACK, `subscribed`/`unsubscribed` mean the subscribe acks, `groups` means LIST_FEED_RSP, `order_id`+`status` means CANCEL_ACK, and 4xx or `error` means ERROR. Pushes are `POST /order/update` and `POST /session/disconnect` on any live connection, with no HTTP response expected.
+- **EWMA snapshot timer.** Implemented as `Ttimeout = T_UDP + dt_safety`, where T_UDP is the EWMA (alpha 1/8) of the measured duration of one snapshot round (encode plus sendto fan-out) and dt_safety is the configured interval (`--snapshot-policy ewma`). This interpretation guarantees dt_safety of matching time between rounds; confirm it against the SRS.
+- **Provisional answers to open review items.** `counterpart_id` carries the counterpart's `order_id` (item 4). SUBSCRIBE takes the union of groups and moves existing groups to a new endpoint (item 13). `callback_port` updates on every frame (item 9).
+- **Delivery during draining.** Unsolicited updates for a client whose connection is draining go to the mailbox, not the draining connection. A push starts when that connection closes.
+- **Client library.** It drains already-received bytes before each request, so a pending DISCONNECT or close is seen before writing into a dead connection.
+- **Module structure.** `PushConnector` is folded into the Dispatcher and `CallbackListener` into `ClientSession`. The doc's `ICodec` is `net::StreamCodec`, chosen per connection by listening port. The text protocol listens on a second port (default 9001).
+
+### 12.2 Measured results (loopback, 16-thread laptop, release build, 2026-10-14)
+
+| Benchmark | Custom binary protocol | HTTP/1.1 + JSON | Ratio |
+|---|---|---|---|
+| BID bytes | 38 | 206 | 5.4x |
+| ORDER_ACK with 1 trade, bytes | 71 | 288 | 4.1x |
+| Codec CPU, BID encode + decode | 49 ns | 2264 ns | 46x |
+| Dispatch latency p50 / p99.9 | 0.1 / 0.3 us | 1.3 / 3.8 us | ~13x |
+| Round trip p50 / p99 / p99.9 (4 clients) | 24.5 / 37.7 / 58.5 us | 31.5 / 55.1 / 66.5 us | 1.3x at p50 |
+| Peak throughput, one dispatcher | 2.81 M replies/s | 0.22 M replies/s | 12.5x |
+
+Dispatch latency meets the SRS 50 us target with a wide margin for both codecs. On loopback, round-trip latency is dominated by kernel socket costs, so the codec difference shows mostly in throughput and CPU cost.
+
+Idle policy (gap 1.5 s before each action):
+
+| Policy | Order placed after gap, p50 | Fill to ORDER_UPDATE, p50 | Connections/min (3 clients, 1 req / 2 s) |
+|---|---|---|---|
+| never | 148 us | 35 us | 0 |
+| fixed 100 ms | 247 us | 74 us (push) | 84 |
+| fixed 1 s | 260 us | 87 us (push) | 78 |
+| fixed 5 s | 154 us | 37 us | 0 |
+
+When the gap exceeds x, the idle timer adds roughly 100 us per order on loopback (one TCP connect). It roughly doubles fill delivery time, because the fill goes through a push connect. On a LAN each connect costs at least one network round trip, so these gaps grow. Benchmark 6 (two machines) runs with `benchmark rtt|throughput --host <ip>` and has not been run yet.

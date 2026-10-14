@@ -93,8 +93,9 @@ bool ClientSession::ensureConnected() {
     }
     if (fd_ >= 0 && !server_closing_) return true;
     dropConnection();  // after DISCONNECT the client closes first and reconnects
-    fd_ = net::connectTcp(cfg_.host, cfg_.port);
-    if (fd_ < 0) return false;
+    int fd = net::connectTcp(cfg_.host, cfg_.port);
+    if (fd < 0) return false;
+    adopt(fd);
     ++stats_.connects;
     trace(TraceEvent::Connected);
     return true;
@@ -103,13 +104,18 @@ bool ClientSession::ensureConnected() {
 void ClientSession::dropConnection() {
     if (fd_ >= 0) trace(TraceEvent::Closed);
     net::closeFd(fd_);
-    reader_ = net::FrameReader();
+    stream_.reset();
     server_closing_ = false;
+}
+
+void ClientSession::adopt(int fd) {
+    fd_ = fd;
+    stream_ = net::makeStreamCodec(cfg_.protocol, symbols_);
 }
 
 bool ClientSession::sendFrame(const Message& msg) {
     std::vector<uint8_t> buf;
-    codec::BinaryCodec::encode(msg, buf);
+    stream_->encode(msg, buf);
     size_t off = 0;
     while (off < buf.size()) {
         ssize_t n = net::sendSome(fd_, buf.data() + off, buf.size() - off);
@@ -159,15 +165,15 @@ bool ClientSession::pumpOnce(int timeout_ms, uint32_t want_req, std::optional<Me
 }
 
 bool ClientSession::readSocket(uint32_t want_req, std::optional<Message>& got) {
-    auto space = reader_.prepare(64 * 1024);
+    auto space = stream_->prepare(64 * 1024);
     ssize_t n = ::recv(fd_, space.first, space.second, 0);
     if (n == 0) return false;
     if (n < 0) return wouldBlock();
-    reader_.commit(static_cast<size_t>(n));
+    stream_->commit(static_cast<size_t>(n));
 
     Message msg;
     for (;;) {
-        net::FrameStatus st = reader_.next(msg);
+        net::FrameStatus st = stream_->next(msg);
         if (st == net::FrameStatus::NeedMore) return true;
         if (st == net::FrameStatus::Fatal) return false;
         if (st == net::FrameStatus::Frame) handleFrame(msg, want_req, got);
@@ -189,6 +195,7 @@ void ClientSession::handleFrame(Message& msg, uint32_t want_req, std::optional<M
         server_closing_ = true;  // keep reading until the server closes; reconnect lazily
         return;
     }
+    if (h.type == MsgType::ListFeedRsp) symbols_->addAll(std::get<ListFeedRsp>(msg.payload));
     if (h.type == MsgType::Error && std::get<Error>(msg.payload).code == ErrorCode::UnknownClient) {
         client_id_ = 0;  // D26: the server forgot us (e.g. restart); start over
     }
@@ -210,7 +217,7 @@ void ClientSession::acceptPush() {
     net::setNoDelay(fd);
     // The server-initiated connection becomes our live session.
     dropConnection();
-    fd_ = fd;
+    adopt(fd);
     ++stats_.pushes_accepted;
     trace(TraceEvent::PushAccepted);
 }

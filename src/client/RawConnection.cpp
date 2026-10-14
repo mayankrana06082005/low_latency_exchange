@@ -45,6 +45,20 @@ bool RawConnection::sendBytes(const std::vector<uint8_t>& bytes) {
 
 bool RawConnection::send(const wire::Message& msg) { return sendBytes(encodeFrame(msg)); }
 
+bool RawConnection::waitForClose(int timeout_ms) {
+    const auto deadline = Clock::now() + std::chrono::milliseconds(timeout_ms);
+    uint8_t buf[4096];
+    while (!closed_) {
+        auto left = std::chrono::duration_cast<std::chrono::milliseconds>(deadline - Clock::now());
+        if (left.count() <= 0) return false;
+        pollfd p{fd_, POLLIN, 0};
+        if (::poll(&p, 1, static_cast<int>(left.count())) <= 0) continue;
+        ssize_t n = ::recv(fd_, buf, sizeof buf, 0);
+        if (n == 0 || (n < 0 && errno != EAGAIN && errno != EWOULDBLOCK)) closed_ = true;
+    }
+    return true;
+}
+
 std::optional<wire::Message> RawConnection::read(int timeout_ms) {
     const auto deadline = Clock::now() + std::chrono::milliseconds(timeout_ms);
     wire::Message msg;

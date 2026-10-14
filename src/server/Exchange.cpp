@@ -1,5 +1,7 @@
 #include "server/Exchange.hpp"
 
+#include <algorithm>
+
 #include "net/Socket.hpp"
 
 namespace server {
@@ -20,6 +22,7 @@ bool Exchange::start() {
         core::WorkerConfig wc;
         wc.worker_id = static_cast<uint8_t>(i);
         wc.groups = {group};
+        wc.snapshot_policy = cfg_.snapshot_policy;
         wc.snapshot_interval = cfg_.snapshot_interval;
         workers_.push_back(
             std::make_unique<core::Worker>(wc, *in_queues_.back(), *out_queues_.back()));
@@ -48,6 +51,14 @@ void Exchange::stop() {
 }
 
 uint16_t Exchange::port() const { return dispatcher_ ? dispatcher_->port() : 0; }
+
+uint16_t Exchange::textPort() const { return dispatcher_ ? dispatcher_->textPort() : 0; }
+
+uint64_t Exchange::maxUdpRoundMicros() const {
+    uint64_t best = 0;
+    for (const auto& w : workers_) best = std::max(best, w->udpRoundMicros());
+    return best;
+}
 
 uint64_t Exchange::datagramsSent() const {
     uint64_t total = 0;

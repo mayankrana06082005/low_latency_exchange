@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "net/Mailbox.hpp"
+#include "net/StreamCodec.hpp"
 
 namespace net {
 
@@ -18,6 +19,7 @@ struct ClientEntry {
     uint64_t push_conn_id = 0;  // server-initiated connect in progress, 0 = none
     uint32_t peer_ip = 0;       // host order, from the last client-initiated connection
     uint16_t callback_port = 0;
+    Protocol protocol = Protocol::Binary;  // codec of the last client-initiated connection
     bool has_udp = false;
     sockaddr_in udp_endpoint{};
     uint32_t group_mask = 0;  // groups subscribed on udp_endpoint

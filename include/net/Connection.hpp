@@ -6,9 +6,10 @@
 #include <cstddef>
 #include <cstdint>
 #include <list>
+#include <memory>
 #include <vector>
 
-#include "net/FrameReader.hpp"
+#include "net/StreamCodec.hpp"
 
 namespace net {
 
@@ -26,9 +27,9 @@ struct Connection {
     using Clock = std::chrono::steady_clock;
 
     Connection(uint64_t id, int socket_fd, const sockaddr_in& peer_addr, ConnState initial,
-               bool is_push, uint32_t max_frame_len)
+               bool is_push, std::unique_ptr<StreamCodec> stream_codec)
         : conn_id(id), fd(socket_fd), peer(peer_addr), state(initial), push(is_push),
-          reader(max_frame_len) {}
+          codec(std::move(stream_codec)) {}
 
     uint64_t conn_id;
     int fd;
@@ -37,7 +38,7 @@ struct Connection {
     bool push;                      // server-initiated (callback) connection
     ClientEntry* client = nullptr;  // bound client, cached so frames need no hash lookup
 
-    FrameReader reader;
+    std::unique_ptr<StreamCodec> codec;  // binary or text, fixed by the listening port
     std::vector<uint8_t> wbuf;
     size_t wpos = 0;
     bool in_write_list = false;

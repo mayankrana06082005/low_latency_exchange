@@ -35,9 +35,10 @@ public:
 
 private:
     void putBE(uint64_t v, int n) {
-        for (int i = n - 1; i >= 0; --i) {
-            out_.push_back(static_cast<uint8_t>(v >> (8 * i)));
-        }
+        const size_t at = out_.size();
+        out_.resize(at + static_cast<size_t>(n));  // one size update per field, not per byte
+        uint8_t* p = out_.data() + at;
+        for (int i = 0; i < n; ++i) p[i] = static_cast<uint8_t>(v >> (8 * (n - 1 - i)));
     }
 
     std::vector<uint8_t>& out_;

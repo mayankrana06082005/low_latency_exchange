@@ -224,6 +224,19 @@ simulation/fast:
 .PHONY : simulation/fast
 
 #=============================================================================
+# Target rules for targets named benchmark
+
+# Build rule for target.
+benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark
+.PHONY : benchmark
+
+# fast build rule for target.
+benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/build
+.PHONY : benchmark/fast
+
+#=============================================================================
 # Target rules for targets named unit_tests
 
 # Build rule for target.
@@ -248,6 +261,30 @@ doctest_with_main: cmake_check_build_system
 doctest_with_main/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/doctest-build/CMakeFiles/doctest_with_main.dir/build.make _deps/doctest-build/CMakeFiles/doctest_with_main.dir/build
 .PHONY : doctest_with_main/fast
+
+src/apps/benchmark_main.o: src/apps/benchmark_main.cpp.o
+.PHONY : src/apps/benchmark_main.o
+
+# target to build an object file
+src/apps/benchmark_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o
+.PHONY : src/apps/benchmark_main.cpp.o
+
+src/apps/benchmark_main.i: src/apps/benchmark_main.cpp.i
+.PHONY : src/apps/benchmark_main.i
+
+# target to preprocess a source file
+src/apps/benchmark_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.i
+.PHONY : src/apps/benchmark_main.cpp.i
+
+src/apps/benchmark_main.s: src/apps/benchmark_main.cpp.s
+.PHONY : src/apps/benchmark_main.s
+
+# target to generate assembly for a file
+src/apps/benchmark_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.s
+.PHONY : src/apps/benchmark_main.cpp.s
 
 src/apps/client_main.o: src/apps/client_main.cpp.o
 .PHONY : src/apps/client_main.o
@@ -320,6 +357,54 @@ src/apps/simulation_main.s: src/apps/simulation_main.cpp.s
 src/apps/simulation_main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simulation.dir/build.make CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.s
 .PHONY : src/apps/simulation_main.cpp.s
+
+src/bench/LoadClient.o: src/bench/LoadClient.cpp.o
+.PHONY : src/bench/LoadClient.o
+
+# target to build an object file
+src/bench/LoadClient.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/bench/LoadClient.cpp.o
+.PHONY : src/bench/LoadClient.cpp.o
+
+src/bench/LoadClient.i: src/bench/LoadClient.cpp.i
+.PHONY : src/bench/LoadClient.i
+
+# target to preprocess a source file
+src/bench/LoadClient.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/bench/LoadClient.cpp.i
+.PHONY : src/bench/LoadClient.cpp.i
+
+src/bench/LoadClient.s: src/bench/LoadClient.cpp.s
+.PHONY : src/bench/LoadClient.s
+
+# target to generate assembly for a file
+src/bench/LoadClient.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/bench/LoadClient.cpp.s
+.PHONY : src/bench/LoadClient.cpp.s
+
+src/bench/Report.o: src/bench/Report.cpp.o
+.PHONY : src/bench/Report.o
+
+# target to build an object file
+src/bench/Report.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/bench/Report.cpp.o
+.PHONY : src/bench/Report.cpp.o
+
+src/bench/Report.i: src/bench/Report.cpp.i
+.PHONY : src/bench/Report.i
+
+# target to preprocess a source file
+src/bench/Report.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/bench/Report.cpp.i
+.PHONY : src/bench/Report.cpp.i
+
+src/bench/Report.s: src/bench/Report.cpp.s
+.PHONY : src/bench/Report.s
+
+# target to generate assembly for a file
+src/bench/Report.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/src/bench/Report.cpp.s
+.PHONY : src/bench/Report.cpp.s
 
 src/client/ClientSession.o: src/client/ClientSession.cpp.o
 .PHONY : src/client/ClientSession.o
@@ -464,6 +549,54 @@ src/codec/BinaryCodec.s: src/codec/BinaryCodec.cpp.s
 src/codec/BinaryCodec.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.s
 .PHONY : src/codec/BinaryCodec.cpp.s
+
+src/codec/SymbolTable.o: src/codec/SymbolTable.cpp.o
+.PHONY : src/codec/SymbolTable.o
+
+# target to build an object file
+src/codec/SymbolTable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o
+.PHONY : src/codec/SymbolTable.cpp.o
+
+src/codec/SymbolTable.i: src/codec/SymbolTable.cpp.i
+.PHONY : src/codec/SymbolTable.i
+
+# target to preprocess a source file
+src/codec/SymbolTable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.i
+.PHONY : src/codec/SymbolTable.cpp.i
+
+src/codec/SymbolTable.s: src/codec/SymbolTable.cpp.s
+.PHONY : src/codec/SymbolTable.s
+
+# target to generate assembly for a file
+src/codec/SymbolTable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.s
+.PHONY : src/codec/SymbolTable.cpp.s
+
+src/codec/TextCodec.o: src/codec/TextCodec.cpp.o
+.PHONY : src/codec/TextCodec.o
+
+# target to build an object file
+src/codec/TextCodec.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o
+.PHONY : src/codec/TextCodec.cpp.o
+
+src/codec/TextCodec.i: src/codec/TextCodec.cpp.i
+.PHONY : src/codec/TextCodec.i
+
+# target to preprocess a source file
+src/codec/TextCodec.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.i
+.PHONY : src/codec/TextCodec.cpp.i
+
+src/codec/TextCodec.s: src/codec/TextCodec.cpp.s
+.PHONY : src/codec/TextCodec.s
+
+# target to generate assembly for a file
+src/codec/TextCodec.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.s
+.PHONY : src/codec/TextCodec.cpp.s
 
 src/core/MarketConfig.o: src/core/MarketConfig.cpp.o
 .PHONY : src/core/MarketConfig.o
@@ -681,6 +814,30 @@ src/net/Socket.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/net/Socket.cpp.s
 .PHONY : src/net/Socket.cpp.s
 
+src/net/StreamCodec.o: src/net/StreamCodec.cpp.o
+.PHONY : src/net/StreamCodec.o
+
+# target to build an object file
+src/net/StreamCodec.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o
+.PHONY : src/net/StreamCodec.cpp.o
+
+src/net/StreamCodec.i: src/net/StreamCodec.cpp.i
+.PHONY : src/net/StreamCodec.i
+
+# target to preprocess a source file
+src/net/StreamCodec.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.i
+.PHONY : src/net/StreamCodec.cpp.i
+
+src/net/StreamCodec.s: src/net/StreamCodec.cpp.s
+.PHONY : src/net/StreamCodec.s
+
+# target to generate assembly for a file
+src/net/StreamCodec.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/exchange_core.dir/build.make CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.s
+.PHONY : src/net/StreamCodec.cpp.s
+
 src/net/UdpPublisher.o: src/net/UdpPublisher.cpp.o
 .PHONY : src/net/UdpPublisher.o
 
@@ -897,6 +1054,30 @@ tests/test_main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/test_main.cpp.s
 .PHONY : tests/test_main.cpp.s
 
+tests/test_text_codec.o: tests/test_text_codec.cpp.o
+.PHONY : tests/test_text_codec.o
+
+# target to build an object file
+tests/test_text_codec.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.o
+.PHONY : tests/test_text_codec.cpp.o
+
+tests/test_text_codec.i: tests/test_text_codec.cpp.i
+.PHONY : tests/test_text_codec.i
+
+# target to preprocess a source file
+tests/test_text_codec.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.i
+.PHONY : tests/test_text_codec.cpp.i
+
+tests/test_text_codec.s: tests/test_text_codec.cpp.s
+.PHONY : tests/test_text_codec.s
+
+# target to generate assembly for a file
+tests/test_text_codec.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/unit_tests.dir/build.make CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.s
+.PHONY : tests/test_text_codec.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -910,12 +1091,16 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... benchmark"
 	@echo "... doctest_with_main"
 	@echo "... exchange_client"
 	@echo "... exchange_core"
 	@echo "... exchange_server"
 	@echo "... simulation"
 	@echo "... unit_tests"
+	@echo "... src/apps/benchmark_main.o"
+	@echo "... src/apps/benchmark_main.i"
+	@echo "... src/apps/benchmark_main.s"
 	@echo "... src/apps/client_main.o"
 	@echo "... src/apps/client_main.i"
 	@echo "... src/apps/client_main.s"
@@ -925,6 +1110,12 @@ help:
 	@echo "... src/apps/simulation_main.o"
 	@echo "... src/apps/simulation_main.i"
 	@echo "... src/apps/simulation_main.s"
+	@echo "... src/bench/LoadClient.o"
+	@echo "... src/bench/LoadClient.i"
+	@echo "... src/bench/LoadClient.s"
+	@echo "... src/bench/Report.o"
+	@echo "... src/bench/Report.i"
+	@echo "... src/bench/Report.s"
 	@echo "... src/client/ClientSession.o"
 	@echo "... src/client/ClientSession.i"
 	@echo "... src/client/ClientSession.s"
@@ -943,6 +1134,12 @@ help:
 	@echo "... src/codec/BinaryCodec.o"
 	@echo "... src/codec/BinaryCodec.i"
 	@echo "... src/codec/BinaryCodec.s"
+	@echo "... src/codec/SymbolTable.o"
+	@echo "... src/codec/SymbolTable.i"
+	@echo "... src/codec/SymbolTable.s"
+	@echo "... src/codec/TextCodec.o"
+	@echo "... src/codec/TextCodec.i"
+	@echo "... src/codec/TextCodec.s"
 	@echo "... src/core/MarketConfig.o"
 	@echo "... src/core/MarketConfig.i"
 	@echo "... src/core/MarketConfig.s"
@@ -970,6 +1167,9 @@ help:
 	@echo "... src/net/Socket.o"
 	@echo "... src/net/Socket.i"
 	@echo "... src/net/Socket.s"
+	@echo "... src/net/StreamCodec.o"
+	@echo "... src/net/StreamCodec.i"
+	@echo "... src/net/StreamCodec.s"
 	@echo "... src/net/UdpPublisher.o"
 	@echo "... src/net/UdpPublisher.i"
 	@echo "... src/net/UdpPublisher.s"
@@ -997,6 +1197,9 @@ help:
 	@echo "... tests/test_main.o"
 	@echo "... tests/test_main.i"
 	@echo "... tests/test_main.s"
+	@echo "... tests/test_text_codec.o"
+	@echo "... tests/test_text_codec.i"
+	@echo "... tests/test_text_codec.s"
 .PHONY : help
 
 

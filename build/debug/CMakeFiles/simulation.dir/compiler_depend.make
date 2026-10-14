@@ -8,17 +8,23 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
   /home/mayank/Desktop/CN/include/client/SessionTracer.hpp \
   /home/mayank/Desktop/CN/include/client/UdpListener.hpp \
   /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp \
+  /home/mayank/Desktop/CN/include/codec/SymbolTable.hpp \
+  /home/mayank/Desktop/CN/include/codec/TextCodec.hpp \
+  /home/mayank/Desktop/CN/include/core/Ewma.hpp \
+  /home/mayank/Desktop/CN/include/core/LatencyRecorder.hpp \
   /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
   /home/mayank/Desktop/CN/include/core/OrderBook.hpp \
   /home/mayank/Desktop/CN/include/core/SpscQueue.hpp \
   /home/mayank/Desktop/CN/include/core/WorkItem.hpp \
   /home/mayank/Desktop/CN/include/core/Worker.hpp \
+  /home/mayank/Desktop/CN/include/net/ByteBuffer.hpp \
   /home/mayank/Desktop/CN/include/net/ClientRegistry.hpp \
   /home/mayank/Desktop/CN/include/net/Connection.hpp \
   /home/mayank/Desktop/CN/include/net/Dispatcher.hpp \
   /home/mayank/Desktop/CN/include/net/FrameReader.hpp \
   /home/mayank/Desktop/CN/include/net/Mailbox.hpp \
   /home/mayank/Desktop/CN/include/net/Poller.hpp \
+  /home/mayank/Desktop/CN/include/net/StreamCodec.hpp \
   /home/mayank/Desktop/CN/include/net/UdpPublisher.hpp \
   /home/mayank/Desktop/CN/include/server/Exchange.hpp \
   /home/mayank/Desktop/CN/include/wire/Messages.hpp \
@@ -29,6 +35,7 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/socket.h \
   /usr/include/asm-generic/sockios.h \
+  /usr/include/c++/13/algorithm \
   /usr/include/c++/13/array \
   /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
@@ -155,6 +162,7 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
   /usr/include/c++/13/numeric \
   /usr/include/c++/13/optional \
   /usr/include/c++/13/pstl/execution_defs.h \
+  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
@@ -367,7 +375,15 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
-/usr/include/c++/13/clocale:
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/c++/13/variant:
 
@@ -395,13 +411,7 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/stl_tree.h:
 
-/usr/include/c++/13/bits/stl_raw_storage_iter.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
 /usr/include/c++/13/bits/stl_numeric.h:
-
-/usr/include/c++/13/compare:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
@@ -445,16 +455,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
-/usr/include/x86_64-linux-gnu/sys/socket.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
-
-/usr/include/c++/13/bits/stl_vector.h:
-
-/usr/include/c++/13/bits/stl_tempbuf.h:
-
-/usr/include/c++/13/bits/random.h:
-
 /usr/include/c++/13/bits/std_abs.h:
 
 /usr/include/c++/13/bits/parse_numbers.h:
@@ -462,6 +462,8 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp:
 
 /usr/include/c++/13/bits/memoryfwd.h:
+
+/usr/include/c++/13/clocale:
 
 /usr/include/c++/13/bits/memory_resource.h:
 
@@ -473,23 +475,27 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/invoke.h:
 
-/usr/include/asm-generic/socket.h:
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
-/usr/include/time.h:
+/usr/include/c++/13/bits/hashtable.h:
 
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+/usr/include/c++/13/bits/functional_hash.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+/usr/include/errno.h:
 
-/home/mayank/Desktop/CN/include/net/UdpPublisher.hpp:
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/include/c++/13/chrono:
+/usr/include/c++/13/bits/node_handle.h:
 
-/usr/include/c++/13/bits/stl_algo.h:
+/usr/include/c++/13/bits/exception_ptr.h:
 
-/usr/include/c++/13/cstddef:
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
-/home/mayank/Desktop/CN/src/apps/simulation_main.cpp:
+/usr/include/c++/13/bits/stl_multimap.h:
+
+/usr/include/c++/13/bits/vector.tcc:
+
+/usr/include/c++/13/optional:
 
 /usr/include/c++/13/bits/ptr_traits.h:
 
@@ -501,57 +507,11 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/exception_defines.h:
 
-/usr/include/c++/13/bits/string_view.tcc:
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
 
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+/home/mayank/Desktop/CN/include/net/Dispatcher.hpp:
 
-/home/mayank/Desktop/CN/include/server/Exchange.hpp:
-
-/usr/include/c++/13/bits/hashtable_policy.h:
-
-/usr/include/c++/13/bits/std_function.h:
-
-/usr/include/c++/13/bits/char_traits.h:
-
-/usr/include/netinet/in.h:
-
-/usr/include/asm-generic/sockios.h:
-
-/usr/include/c++/13/bits/move.h:
-
-/usr/include/c++/13/bits/stringfwd.h:
-
-/usr/include/c++/13/bits/uniform_int_dist.h:
-
-/usr/include/c++/13/backward/binders.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/c++/13/bits/stl_multimap.h:
-
-/usr/include/c++/13/bits/exception_ptr.h:
-
-/usr/include/c++/13/bits/vector.tcc:
-
-/usr/include/c++/13/optional:
-
-/home/mayank/Desktop/CN/include/client/OrderLedger.hpp:
-
-/usr/include/c++/13/bits/enable_special_members.h:
-
-/usr/include/c++/13/cmath:
-
-/home/mayank/Desktop/CN/include/core/Worker.hpp:
-
-/usr/include/c++/13/vector:
-
-/home/mayank/Desktop/CN/include/client/SessionTracer.hpp:
-
-/usr/include/pthread.h:
-
-/usr/include/c++/13/cerrno:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
+/usr/include/c++/13/cstring:
 
 /usr/include/c++/13/debug/assertions.h:
 
@@ -561,21 +521,133 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/limits:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
-
-/home/mayank/Desktop/CN/include/net/Dispatcher.hpp:
-
-/usr/include/c++/13/cstring:
-
 /usr/include/c++/13/bits/deque.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/home/mayank/Desktop/CN/include/net/ClientRegistry.hpp:
+
+/home/mayank/Desktop/CN/include/core/Worker.hpp:
+
+/usr/include/c++/13/vector:
+
+/home/mayank/Desktop/CN/src/apps/simulation_main.cpp:
+
+/usr/include/asm-generic/socket.h:
+
+/usr/include/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/13/bits/basic_string.tcc:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/bit:
+
+/home/mayank/Desktop/CN/include/client/OrderLedger.hpp:
+
+/usr/include/x86_64-linux-gnu/sys/socket.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
+
+/usr/include/c++/13/bits/stl_vector.h:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
+
+/usr/include/c++/13/bits/random.h:
+
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/home/mayank/Desktop/CN/include/core/SpscQueue.hpp:
+
+/usr/include/c++/13/bits/atomic_lockfree_defines.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/home/mayank/Desktop/CN/include/codec/SymbolTable.hpp:
+
+/home/mayank/Desktop/CN/include/codec/TextCodec.hpp:
+
+/home/mayank/Desktop/CN/include/client/SessionTracer.hpp:
+
+/usr/include/pthread.h:
+
+/home/mayank/Desktop/CN/include/net/UdpPublisher.hpp:
+
+/usr/include/c++/13/bits/stl_list.h:
+
+/usr/include/c++/13/bits/erase_if.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+
+/home/mayank/Desktop/CN/include/client/RawConnection.hpp:
+
+/home/mayank/Desktop/CN/include/core/LatencyRecorder.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/include/math.h:
+
+/usr/include/x86_64-linux-gnu/asm/sockios.h:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/asm-generic/sockios.h:
+
+/home/mayank/Desktop/CN/include/core/WorkItem.hpp:
+
+/usr/include/c++/13/tr1/poly_hermite.tcc:
+
+/usr/include/c++/13/bits/stl_algo.h:
+
+/usr/include/c++/13/cstddef:
+
+/usr/include/c++/13/bits/ostream_insert.h:
+
+/usr/include/c++/13/bits/stl_set.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/c++/13/bits/charconv.h:
+
+/usr/include/c++/13/cstdio:
+
+/usr/include/c++/13/bits/hashtable_policy.h:
+
+/home/mayank/Desktop/CN/include/server/Exchange.hpp:
+
+/usr/include/c++/13/bits/std_function.h:
+
+/usr/include/c++/13/bits/char_traits.h:
+
+/usr/include/netinet/in.h:
+
+/home/mayank/Desktop/CN/include/core/MarketConfig.hpp:
+
+/usr/include/c++/13/bits/exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/13/typeinfo:
+
+/usr/include/c++/13/tr1/legendre_function.tcc:
+
+/usr/include/c++/13/bits/uniform_int_dist.h:
+
+/usr/include/c++/13/bits/stringfwd.h:
 
 /usr/include/c++/13/bits/shared_ptr.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /home/mayank/Desktop/CN/include/core/OrderBook.hpp:
+
+/home/mayank/Desktop/CN/include/net/ByteBuffer.hpp:
 
 /usr/include/c++/13/bits/stl_construct.h:
 
@@ -589,61 +661,33 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/alloc_traits.h:
 
-/usr/include/c++/13/bits/atomic_lockfree_defines.h:
+/usr/include/c++/13/bits/string_view.tcc:
 
-/usr/include/x86_64-linux-gnu/asm/errno.h:
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
+/usr/include/c++/13/backward/binders.h:
 
-/usr/include/c++/13/bit:
+/usr/include/c++/13/bits/stl_raw_storage_iter.h:
 
-/usr/include/c++/13/bits/basic_string.tcc:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+/usr/include/c++/13/tr1/modified_bessel_func.tcc:
 
-/usr/include/c++/13/bits/charconv.h:
+/usr/include/c++/13/algorithm:
 
-/usr/include/c++/13/cstdio:
+/usr/include/c++/13/bits/hash_bytes.h:
 
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
-/home/mayank/Desktop/CN/include/core/SpscQueue.hpp:
+/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+/usr/include/asm-generic/errno-base.h:
 
-/usr/include/c++/13/bits/hashtable.h:
+/usr/include/c++/13/array:
 
-/usr/include/c++/13/bits/ostream_insert.h:
+/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
 
-/usr/include/c++/13/bits/stl_set.h:
-
-/home/mayank/Desktop/CN/include/core/WorkItem.hpp:
-
-/usr/include/c++/13/tr1/poly_hermite.tcc:
-
-/usr/include/alloca.h:
-
-/usr/include/c++/13/bits/stl_list.h:
-
-/usr/include/c++/13/bits/erase_if.h:
-
-/home/mayank/Desktop/CN/include/client/RawConnection.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-
-/home/mayank/Desktop/CN/include/net/ClientRegistry.hpp:
-
-/usr/include/c++/13/tr1/legendre_function.tcc:
-
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
-/usr/include/c++/13/typeinfo:
-
-/home/mayank/Desktop/CN/include/core/MarketConfig.hpp:
-
-/usr/include/c++/13/bits/exception.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+/usr/include/c++/13/bits/enable_special_members.h:
 
 /usr/include/c++/13/backward/auto_ptr.h:
 
@@ -652,10 +696,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/bits/algorithmfwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/c++/13/bits/node_handle.h:
 
 /usr/include/c++/13/bits/predefined_ops.h:
 
@@ -677,27 +717,23 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
 /usr/include/c++/13/bits/cxxabi_forced.h:
 
-/usr/include/c++/13/bits/functional_hash.h:
+/usr/include/c++/13/cerrno:
 
-/usr/include/errno.h:
+/home/mayank/Desktop/CN/include/net/StreamCodec.hpp:
 
-/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
+/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
-/usr/include/asm-generic/errno-base.h:
+/usr/include/c++/13/chrono:
 
-/usr/include/c++/13/array:
+/usr/include/c++/13/cmath:
 
-/usr/include/x86_64-linux-gnu/bits/sockaddr.h:
-
-/usr/include/c++/13/bits/hash_bytes.h:
-
-/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+/usr/include/c++/13/compare:
 
 /usr/include/c++/13/ctime:
+
+/home/mayank/Desktop/CN/include/core/Ewma.hpp:
 
 /usr/include/c++/13/deque:
 
@@ -730,6 +766,8 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/new:
 
 /usr/include/c++/13/ext/concurrence.h:
+
+/usr/include/c++/13/pstl/glue_algorithm_defs.h:
 
 /usr/include/c++/13/ext/string_conversions.h:
 
@@ -800,8 +838,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/tr1/hypergeometric.tcc:
 
 /usr/include/c++/13/type_traits:
-
-/usr/include/c++/13/tr1/modified_bessel_func.tcc:
 
 /usr/include/c++/13/tr1/riemann_zeta.tcc:
 
@@ -905,18 +941,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
-/usr/include/math.h:
-
-/usr/include/x86_64-linux-gnu/asm/sockios.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:

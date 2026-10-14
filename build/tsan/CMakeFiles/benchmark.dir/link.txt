@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -fsanitize=thread CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o CMakeFiles/benchmark.dir/src/bench/Report.cpp.o CMakeFiles/benchmark.dir/src/bench/LoadClient.cpp.o -o benchmark  libexchange_core.a 

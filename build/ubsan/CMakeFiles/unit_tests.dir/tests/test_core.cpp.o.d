@@ -163,7 +163,7 @@ CMakeFiles/unit_tests.dir/tests/test_core.cpp.o: \
  /usr/include/c++/13/bits/atomic_lockfree_defines.h \
  /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
  /home/mayank/Desktop/CN/include/core/Worker.hpp \
- /usr/include/c++/13/chrono \
+ /usr/include/c++/13/chrono /home/mayank/Desktop/CN/include/core/Ewma.hpp \
  /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
  /home/mayank/Desktop/CN/include/core/WorkItem.hpp \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/sys/socket.h \

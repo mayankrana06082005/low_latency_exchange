@@ -281,11 +281,18 @@ FETCHCONTENT_QUIET:BOOL=ON
 // for doctest
 FETCHCONTENT_SOURCE_DIR_DOCTEST:PATH=
 
+//When not empty, overrides where to find pre-populated content
+// for nlohmann_json
+FETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON:PATH=
+
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of doctest
 FETCHCONTENT_UPDATES_DISCONNECTED_DOCTEST:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of nlohmann_json
+FETCHCONTENT_UPDATES_DISCONNECTED_NLOHMANN_JSON:BOOL=OFF
 
 //Sanitizer to build with: none, asan, ubsan, tsan
 SANITIZER:STRING=tsan

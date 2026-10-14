@@ -17,6 +17,8 @@
 #include "client/RawConnection.hpp"
 #include "client/SessionTracer.hpp"
 #include "client/UdpListener.hpp"
+#include "codec/BinaryCodec.hpp"
+#include "codec/TextCodec.hpp"
 #include "core/MarketConfig.hpp"
 #include "server/Exchange.hpp"
 
@@ -29,6 +31,7 @@ namespace {
 
 constexpr uint16_t AAPL = 1;
 constexpr uint16_t MSFT = 2;
+constexpr uint16_t GOOG = 3;
 constexpr int kIdleMs = 300;
 
 int g_pass = 0;
@@ -113,6 +116,7 @@ int main(int argc, char** argv) {
 
     server::ExchangeConfig cfg;
     cfg.dispatcher.port = 0;
+    cfg.dispatcher.text_port = 0;
     cfg.dispatcher.idle_timeout = std::chrono::milliseconds(kIdleMs);
     cfg.dispatcher.drain_grace = std::chrono::milliseconds(50);
     cfg.dispatcher.push_timeout = std::chrono::milliseconds(500);
@@ -135,8 +139,8 @@ int main(int argc, char** argv) {
         return 1;
     }
     const client::ClientConfig at{"127.0.0.1", exchange.port()};
-    std::printf("exchange on 127.0.0.1:%u  (idle %d ms, grace 50 ms, snapshots every 20 ms)\n",
-                exchange.port(), kIdleMs);
+    std::printf("exchange on 127.0.0.1: binary port %u, text port %u  (idle %d ms, grace 50 ms, "
+                "snapshots every 20 ms)\n", exchange.port(), exchange.textPort(), kIdleMs);
     if (!quiet) {
         std::puts("trace legend:  -->  client sends to dispatcher    <--  dispatcher sends to client");
         std::puts("               <==  dispatcher opened a push connection    -x-  connection closed");
@@ -348,6 +352,60 @@ int main(int argc, char** argv) {
         check(maskOf(first.unsubscribe(0b100)) == 0,
               "erin's subscription was dropped when frank claimed the same endpoint");
         check(maskOf(second.unsubscribe(0b100)) == 0b100, "frank holds the subscription");
+    }
+
+    // ------------------------------------------------------------------
+    section("11. Text baseline: the same protocol as HTTP/1.1 + JSON");
+    {
+        const Message sample = makeMessage(MsgType::Bid, 1, 8841120934410029ULL, OrderRequest{GOOG, 250, 7});
+        std::vector<uint8_t> bin;
+        codec::BinaryCodec::encode(sample, bin);
+        codec::SymbolTable symbols;
+        symbols.add(GOOG, "GOOG");
+        std::vector<uint8_t> txt;
+        codec::TextCodec::encode(sample, symbols, txt);
+        if (!quiet) {
+            std::string hex;
+            char byte[4];
+            for (uint8_t b : bin) {
+                std::snprintf(byte, sizeof byte, "%02x ", b);
+                hex += byte;
+            }
+            std::printf("  the same BID on the wire:\n  binary (%zu bytes): %s\n  text (%zu bytes):\n", bin.size(),
+                        hex.c_str(), txt.size());
+            std::string t(txt.begin(), txt.end());
+            size_t pos = 0;
+            while ((pos = t.find("\r\n", pos)) != std::string::npos) t.replace(pos, 2, "\\r\\n\n    ");
+            std::printf("    %s\n\n", t.c_str());
+        }
+
+        const client::ClientConfig text_at{"127.0.0.1", exchange.textPort(), net::Protocol::Text};
+        ClientSession tina(text_at), tom(text_at);
+        trace.attach(tina, "tina");
+        trace.attach(tom, "tom");
+        tina.enablePush();
+        UpdateLog tina_log;
+        tina_log.attach(tina);
+        check(isType(tina.listFeed(), MsgType::ListFeedRsp) && isType(tom.listFeed(), MsgType::ListFeedRsp),
+              "text clients get LIST_FEED_RSP and learn the ticker table");
+        auto t_bid = tina.bid(GOOG, 250, 7);
+        const uint64_t tina_order = ackOf(t_bid) ? ackOf(t_bid)->order_id : 0;
+        check(ackOf(t_bid) && ackOf(t_bid)->status == OrderStatus::Resting, "tina BID GOOG 7 @ 250 -> RESTING");
+        check(isError(tom.cancel(tina_order), ErrorCode::NotOwner), "tom CANCEL tina's order -> 403 NOT_OWNER");
+        check(ackOf(tom.ask(GOOG, 250, 3)) != nullptr, "tom ASK GOOG 3 @ 250 -> ORDER_ACK");
+        spin(100, {&tina});
+        check(!tina_log.updates.empty() && tina_log.updates.back().remaining_vol == 4,
+              "tina got ORDER_UPDATE (POST /order/update): remaining 4");
+        trace.note("tina", "goes quiet for " + std::to_string(kIdleMs + 200) + " ms");
+        spin(kIdleMs + 200, {&tina});
+        tom.ask(GOOG, 250, 4);
+        spin(300, {&tina});
+        check(tina.stats().pushes_accepted >= 1 && tina_log.updates.back().status == OrderStatus::Filled,
+              "after idling out, the final fill was pushed to tina over HTTP");
+        bob.bid(GOOG, 260, 1);
+        auto cross = tom.ask(GOOG, 260, 1);
+        check(ackOf(cross) && ackOf(cross)->status == OrderStatus::Filled,
+              "binary client bob and text client tom trade against the same book");
     }
 
     exchange.stop();

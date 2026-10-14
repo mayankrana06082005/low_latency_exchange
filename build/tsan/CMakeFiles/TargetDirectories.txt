@@ -2,6 +2,7 @@
 /home/mayank/Desktop/CN/build/tsan/CMakeFiles/exchange_server.dir
 /home/mayank/Desktop/CN/build/tsan/CMakeFiles/exchange_client.dir
 /home/mayank/Desktop/CN/build/tsan/CMakeFiles/simulation.dir
+/home/mayank/Desktop/CN/build/tsan/CMakeFiles/benchmark.dir
 /home/mayank/Desktop/CN/build/tsan/CMakeFiles/unit_tests.dir
 /home/mayank/Desktop/CN/build/tsan/CMakeFiles/test.dir
 /home/mayank/Desktop/CN/build/tsan/CMakeFiles/edit_cache.dir

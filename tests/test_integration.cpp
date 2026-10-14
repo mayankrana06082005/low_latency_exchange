@@ -239,3 +239,99 @@ TEST_CASE("UDP: an endpoint claimed by a newer client leaves the old owner") {
     CHECK(std::get<GroupMask>(first.unsubscribe(0b001)->payload).group_mask == 0);
     CHECK(std::get<GroupMask>(second.unsubscribe(0b001)->payload).group_mask == 0b001);
 }
+
+// ---------------------------------------------------------------- text baseline
+
+namespace {
+
+server::ExchangeConfig textConfig(net::IdlePolicy policy) {
+    server::ExchangeConfig cfg = testConfig(policy);
+    cfg.dispatcher.text_port = 0;
+    return cfg;
+}
+
+client::ClientConfig textClient(const server::Exchange& ex) {
+    return client::ClientConfig{"127.0.0.1", ex.textPort(), net::Protocol::Text};
+}
+
+}  // namespace
+
+TEST_CASE("text protocol: order flow, update and ownership over HTTP/1.1 + JSON") {
+    server::Exchange ex(textConfig(net::IdlePolicy::Never));
+    REQUIRE(ex.start());
+    ClientSession alice(textClient(ex)), bob(textClient(ex));
+    std::vector<OrderAck> updates;
+    alice.onUpdate([&updates](const OrderAck& u) { updates.push_back(u); });
+    REQUIRE(alice.listFeed());  // learns the ticker table
+    REQUIRE(bob.listFeed());
+    CHECK(alice.clientId() != 0);
+
+    auto rest = alice.bid(AAPL, 100, 10);
+    REQUIRE(ackOf(rest));
+    CHECK(ackOf(rest)->status == OrderStatus::Resting);
+    const uint64_t order = ackOf(rest)->order_id;
+    CHECK(isError(bob.cancel(order), ErrorCode::NotOwner));
+    CHECK(ackOf(bob.ask(AAPL, 100, 4))->status == OrderStatus::Filled);
+    spin(100, {&alice});
+    REQUIRE(updates.size() == 1);
+    CHECK(updates[0].remaining_vol == 6);
+    CHECK(isError(bob.bid(999, 1, 1), ErrorCode::UnknownSymbol));
+
+    auto cancel = alice.cancel(order);
+    REQUIRE(cancel);
+    CHECK(cancel->header.type == MsgType::CancelAck);
+}
+
+TEST_CASE("text protocol: push after idle arrives as POST /order/update") {
+    server::Exchange ex(textConfig(net::IdlePolicy::Fixed));
+    REQUIRE(ex.start());
+    ClientSession alice(textClient(ex)), bob(textClient(ex));
+    REQUIRE(alice.enablePush());
+    std::vector<OrderAck> updates;
+    alice.onUpdate([&updates](const OrderAck& u) { updates.push_back(u); });
+    alice.listFeed();
+    bob.listFeed();
+
+    alice.bid(AAPL, 100, 5);
+    spin(kIdleMs + 100, {&alice});
+    REQUIRE(alice.stats().disconnects_received == 1);
+    bob.ask(AAPL, 100, 5);
+    spin(200, {&alice});
+    CHECK(alice.stats().pushes_accepted == 1);
+    REQUIRE(updates.size() == 1);
+    CHECK(updates[0].status == OrderStatus::Filled);
+}
+
+TEST_CASE("binary and text clients trade against the same book") {
+    server::Exchange ex(textConfig(net::IdlePolicy::Never));
+    REQUIRE(ex.start());
+    ClientSession bin({"127.0.0.1", ex.port()}), txt(textClient(ex));
+    std::vector<OrderAck> updates;
+    bin.onUpdate([&updates](const OrderAck& u) { updates.push_back(u); });
+    txt.listFeed();
+    bin.bid(AAPL, 100, 3);
+    auto fill = txt.ask(AAPL, 100, 3);
+    REQUIRE(ackOf(fill));
+    CHECK(ackOf(fill)->status == OrderStatus::Filled);
+    spin(100, {&bin});
+    REQUIRE(updates.size() == 1);
+    CHECK(updates[0].status == OrderStatus::Filled);
+}
+
+TEST_CASE("text protocol: garbage closes only that connection; dispatch latency is recorded") {
+    server::ExchangeConfig cfg = textConfig(net::IdlePolicy::Never);
+    cfg.dispatcher.record_dispatch_latency = true;
+    server::Exchange ex(cfg);
+    REQUIRE(ex.start());
+    ClientSession good(textClient(ex));
+    good.listFeed();
+    good.bid(AAPL, 100, 1);
+
+    client::RawConnection bad;
+    REQUIRE(bad.connect("127.0.0.1", ex.textPort()));
+    bad.sendBytes(std::vector<uint8_t>{'G', 'E', 'T', ' ', '/', ' ', 'H', 'T', 'T', 'P', '/', '0', '.', '9', '\r', '\n', '\r', '\n'});
+    CHECK(bad.waitForClose(1000));
+    CHECK(good.listFeed());
+    ex.stop();
+    CHECK(ex.dispatchLatency().samples().size() == 1);  // the one BID
+}

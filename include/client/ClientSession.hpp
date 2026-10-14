@@ -2,17 +2,20 @@
 
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <optional>
 #include <string>
 
-#include "net/FrameReader.hpp"
+#include "codec/SymbolTable.hpp"
+#include "net/StreamCodec.hpp"
 #include "wire/Messages.hpp"
 
 namespace client {
 
 struct ClientConfig {
     std::string host = "127.0.0.1";
-    uint16_t port = 9000;
+    uint16_t port = 9000;  // the server's port for `protocol`
+    net::Protocol protocol = net::Protocol::Binary;
 };
 
 // Connection-level events reported to a trace handler, in the order they happen.
@@ -36,6 +39,8 @@ struct SessionStats {
 //  - reconnects lazily on the next request after DISCONNECT or a lost connection;
 //  - never auto-resends a request whose outcome is unknown (returns nullopt);
 //  - optionally listens on a callback port and adopts server push connections.
+// Text mode sends tickers as strings: call listFeed() first so the session
+// learns the ticker <-> symbol_id table.
 // Single-threaded: call every method from the same thread.
 class ClientSession {
 public:
@@ -69,9 +74,11 @@ public:
     uint16_t callbackPort() const { return callback_port_; }
     bool connected() const { return fd_ >= 0 && !server_closing_; }
     const SessionStats& stats() const { return stats_; }
+    net::Protocol protocol() const { return cfg_.protocol; }
 
 private:
     bool ensureConnected();
+    void adopt(int fd);  // makes fd the session connection with a fresh codec
     void dropConnection();
     bool sendFrame(const wire::Message& msg);
     std::optional<wire::Message> awaitResponse(uint32_t req_id, int timeout_ms);
@@ -86,7 +93,8 @@ private:
     int fd_ = -1;
     int listen_fd_ = -1;
     uint16_t callback_port_ = 0;
-    net::FrameReader reader_;
+    std::shared_ptr<codec::SymbolTable> symbols_ = std::make_shared<codec::SymbolTable>();
+    std::unique_ptr<net::StreamCodec> stream_;
     uint64_t client_id_ = 0;
     uint32_t next_req_id_ = 1;
     bool server_closing_ = false;  // DISCONNECT received; reconnect before the next request

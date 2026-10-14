@@ -123,8 +123,17 @@ void Worker::handleSubscription(const WorkItem& item) {
 void Worker::maybePublish(Clock::time_point now) {
     if (now < next_snapshot_) return;
     publishSnapshots();
-    next_snapshot_ += cfg_.snapshot_interval;
-    if (next_snapshot_ < now) next_snapshot_ = now + cfg_.snapshot_interval;  // fell behind
+    const Clock::time_point done = Clock::now();
+    const auto round = std::chrono::duration_cast<std::chrono::microseconds>(done - now);
+    next_snapshot_ = done + nextSnapshotDelay(round);
+}
+
+std::chrono::microseconds Worker::nextSnapshotDelay(std::chrono::microseconds last_round) {
+    const std::chrono::microseconds interval = cfg_.snapshot_interval;
+    if (cfg_.snapshot_policy == SnapshotPolicy::Fixed) return interval;
+    const double t_udp = udp_round_.update(static_cast<double>(last_round.count()));
+    udp_round_us_.store(static_cast<uint64_t>(t_udp), std::memory_order_relaxed);
+    return std::chrono::microseconds(static_cast<int64_t>(t_udp)) + interval;  // T_UDP + dt_safety
 }
 
 void Worker::publishSnapshots() {

@@ -25,6 +25,8 @@ public:
     // Next complete frame, or nullopt on timeout or close (see closed()).
     std::optional<wire::Message> read(int timeout_ms);
     bool closed() const { return closed_; }
+    // Discards whatever arrives until the peer closes; true if it closed in time.
+    bool waitForClose(int timeout_ms);
 
 private:
     int fd_ = -1;

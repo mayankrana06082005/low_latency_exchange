@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "core/Ewma.hpp"
 #include "core/MarketConfig.hpp"
 #include "core/OrderBook.hpp"
 #include "core/SpscQueue.hpp"
@@ -16,10 +17,19 @@
 
 namespace core {
 
+// Fixed: one snapshot round every `snapshot_interval`.
+// Ewma:  next round after Ttimeout = T_UDP + dt_safety (SRS), where T_UDP is the
+//        EWMA of how long a snapshot round (encode + sendto fan-out) takes and
+//        dt_safety = `snapshot_interval`. The worker therefore always gets at
+//        least dt_safety of matching time between rounds, however many
+//        subscribers there are.
+enum class SnapshotPolicy { Fixed, Ewma };
+
 struct WorkerConfig {
     uint8_t worker_id = 0;            // top byte of every order_id and trade_id (D9)
     std::vector<GroupConfig> groups;  // groups this worker owns
-    std::chrono::milliseconds snapshot_interval{100};
+    SnapshotPolicy snapshot_policy = SnapshotPolicy::Fixed;
+    std::chrono::milliseconds snapshot_interval{100};  // interval, or dt_safety for Ewma
 };
 
 // Single-threaded owner of its order books, order_id counter, subscriber
@@ -34,6 +44,10 @@ public:
 
     uint64_t datagramsSent() const { return publisher_.sent(); }
     uint64_t datagramsDropped() const { return publisher_.dropped(); }
+    // Current T_UDP estimate in microseconds (0 until the first round).
+    uint64_t udpRoundMicros() const { return udp_round_us_.load(std::memory_order_relaxed); }
+    // Delay before the next round, given how long the last round took.
+    std::chrono::microseconds nextSnapshotDelay(std::chrono::microseconds last_round);
 
 private:
     struct TickerState {
@@ -66,6 +80,8 @@ private:
     net::UdpPublisher publisher_;
     const std::atomic<bool>* running_ = nullptr;
     std::chrono::steady_clock::time_point next_snapshot_;
+    Ewma udp_round_;
+    std::atomic<uint64_t> udp_round_us_{0};
 };
 
 }  // namespace core

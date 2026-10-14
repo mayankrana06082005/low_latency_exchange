@@ -28,15 +28,30 @@ add_link_options(${SANITIZER_FLAGS})
 
 find_package(Threads REQUIRED)
 
+# Dependencies, pinned. Only json.hpp is used from nlohmann/json, so its own
+# CMake project is skipped (SOURCE_SUBDIR points at a directory with no CMakeLists).
+include(FetchContent)
+FetchContent_Declare(nlohmann_json
+    URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+    SOURCE_SUBDIR single_include
+)
+FetchContent_MakeAvailable(nlohmann_json)
+add_library(nlohmann_json_header INTERFACE)
+target_include_directories(nlohmann_json_header SYSTEM INTERFACE ${nlohmann_json_SOURCE_DIR}/single_include)
+
 # Core library: everything except main programs.
 add_library(exchange_core
     src/wire/Messages.cpp
     src/codec/BinaryCodec.cpp
+    src/codec/SymbolTable.cpp
+    src/codec/TextCodec.cpp
     src/core/MarketConfig.cpp
     src/core/OrderBook.cpp
     src/core/Worker.cpp
     src/net/Socket.cpp
     src/net/FrameReader.cpp
+    src/net/StreamCodec.cpp
     src/net/Poller.cpp
     src/net/Mailbox.cpp
     src/net/ClientRegistry.cpp
@@ -50,7 +65,7 @@ add_library(exchange_core
     src/client/SessionTracer.cpp
 )
 target_include_directories(exchange_core PUBLIC include)
-target_link_libraries(exchange_core PUBLIC Threads::Threads)
+target_link_libraries(exchange_core PUBLIC Threads::Threads PRIVATE nlohmann_json_header)
 
 # Programs
 add_executable(exchange_server src/apps/server_main.cpp)
@@ -59,9 +74,14 @@ add_executable(exchange_client src/apps/client_main.cpp)
 target_link_libraries(exchange_client PRIVATE exchange_core)
 add_executable(simulation src/apps/simulation_main.cpp)
 target_link_libraries(simulation PRIVATE exchange_core)
+add_executable(benchmark
+    src/apps/benchmark_main.cpp
+    src/bench/Report.cpp
+    src/bench/LoadClient.cpp
+)
+target_link_libraries(benchmark PRIVATE exchange_core)
 
 # Tests
-include(FetchContent)
 FetchContent_Declare(doctest
     URL https://github.com/doctest/doctest/archive/refs/tags/v2.4.12.tar.gz
     DOWNLOAD_EXTRACT_TIMESTAMP TRUE
@@ -75,6 +95,7 @@ add_executable(unit_tests
     tests/test_binary_codec.cpp
     tests/test_frame_reader.cpp
     tests/test_core.cpp
+    tests/test_text_codec.cpp
     tests/test_integration.cpp
 )
 target_link_libraries(unit_tests PRIVATE exchange_core doctest::doctest)

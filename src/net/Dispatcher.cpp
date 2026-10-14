@@ -29,6 +29,10 @@ Dispatcher::Dispatcher(DispatcherConfig cfg, core::MarketConfig market,
     : cfg_(cfg), market_(std::move(market)), workers_(std::move(workers)),
       pending_control_(workers_.size()), symbol_worker_(65536, -1),
       list_feed_(market_.toListFeed()) {
+    auto symbols = std::make_shared<codec::SymbolTable>();
+    symbols->addAll(list_feed_);
+    symbols_ = symbols;
+    if (cfg_.record_dispatch_latency) dispatch_latency_.setCapacity(cfg_.dispatch_latency_capacity);
     for (const core::GroupConfig& g : market_.groups) {
         const uint32_t bit = 1u << g.group_id;
         market_mask_ |= bit;
@@ -44,6 +48,7 @@ Dispatcher::Dispatcher(DispatcherConfig cfg, core::MarketConfig market,
 Dispatcher::~Dispatcher() {
     for (auto& entry : conns_) ::close(entry.second->fd);
     closeFd(listen_fd_);
+    closeFd(text_listen_fd_);
 }
 
 bool Dispatcher::open() {
@@ -51,6 +56,12 @@ bool Dispatcher::open() {
     if (listen_fd_ < 0) return false;
     port_ = localPort(listen_fd_);
     poller_.add(listen_fd_, POLLIN);
+    if (cfg_.text_port >= 0) {
+        text_listen_fd_ = listenTcp(static_cast<uint16_t>(cfg_.text_port));
+        if (text_listen_fd_ < 0) return false;
+        text_port_ = localPort(text_listen_fd_);
+        poller_.add(text_listen_fd_, POLLIN);
+    }
     return true;
 }
 
@@ -73,8 +84,8 @@ void Dispatcher::runOnce() {
 void Dispatcher::pollSockets() {
     poller_.wait(0, events_);
     for (const PollEvent& ev : events_) {
-        if (ev.fd == listen_fd_) {
-            acceptAll();
+        if (ev.fd == listen_fd_ || ev.fd == text_listen_fd_) {
+            acceptAll(ev.fd, ev.fd == listen_fd_ ? Protocol::Binary : Protocol::Text);
             continue;
         }
         auto it = fd_conn_.find(ev.fd);
@@ -88,32 +99,33 @@ void Dispatcher::pollSockets() {
     }
 }
 
-void Dispatcher::acceptAll() {
+void Dispatcher::acceptAll(int listen_fd, Protocol protocol) {
     for (;;) {
         sockaddr_in peer{};
         socklen_t len = sizeof peer;
-        int fd = ::accept(listen_fd_, reinterpret_cast<sockaddr*>(&peer), &len);
+        int fd = ::accept(listen_fd, reinterpret_cast<sockaddr*>(&peer), &len);
         if (fd < 0) return;
         setNonBlocking(fd);
         setNoDelay(fd);
-        touch(addConnection(fd, peer, ConnState::Open, false));
+        touch(addConnection(fd, peer, ConnState::Open, false, protocol));
         stats_.accepted.fetch_add(1, std::memory_order_relaxed);
     }
 }
 
 void Dispatcher::readFrom(Connection& c) {
-    auto space = c.reader.prepare(kReadChunk);
+    auto space = c.codec->prepare(kReadChunk);
     ssize_t n = ::recv(c.fd, space.first, space.second, 0);
     if (n == 0 || (n < 0 && !wouldBlock())) {
         closeConnection(c);
         return;
     }
     if (n < 0) return;
-    c.reader.commit(static_cast<size_t>(n));
+    c.codec->commit(static_cast<size_t>(n));
+    if (cfg_.record_dispatch_latency) read_time_ = Clock::now();
 
     Message msg;
     while (c.state != ConnState::Closed) {
-        FrameStatus st = c.reader.next(msg);
+        FrameStatus st = c.codec->next(msg);
         if (st == FrameStatus::NeedMore) break;
         stats_.frames_in.fetch_add(1, std::memory_order_relaxed);
         if (st == FrameStatus::Frame) {
@@ -123,7 +135,7 @@ void Dispatcher::readFrom(Connection& c) {
             replyError(c, msg.header.req_id, ErrorCode::UnknownType);
         } else {
             // Bad version, oversize length or malformed payload: close (NFR-4).
-            if (c.reader.lastError() == codec::DecodeStatus::UnsupportedVersion) {
+            if (c.codec->lastError() == codec::DecodeStatus::UnsupportedVersion) {
                 replyError(c, 0, ErrorCode::UnsupportedVersion);
             }
             flushConnection(c);
@@ -177,7 +189,10 @@ void Dispatcher::bindConnection(ClientEntry& e, Connection& c) {
     e.push_conn_id = 0;
     e.conn_id = c.conn_id;
     c.client = &e;
-    if (!c.push) e.peer_ip = ntohl(c.peer.sin_addr.s_addr);
+    if (!c.push) {
+        e.peer_ip = ntohl(c.peer.sin_addr.s_addr);
+        e.protocol = c.codec->protocol();  // pushes use the client's own protocol
+    }
     flushMailbox(e, c);
 }
 
@@ -282,7 +297,12 @@ void Dispatcher::replyError(Connection& c, uint32_t req_id, ErrorCode code) {
 bool Dispatcher::sendToWorker(size_t w, WorkItem&& item) {
     // Orders never overtake control items still waiting for queue space.
     if (!pending_control_[w].empty()) return false;
-    return workers_[w].in->tryPush(std::move(item));
+    if (!workers_[w].in->tryPush(std::move(item))) return false;
+    if (cfg_.record_dispatch_latency) {
+        dispatch_latency_.add(static_cast<uint64_t>(
+            std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - read_time_).count()));
+    }
+    return true;
 }
 
 void Dispatcher::sendControl(MsgType type, const sockaddr_in& endpoint, uint32_t mask) {
@@ -390,7 +410,7 @@ void Dispatcher::flushMailbox(ClientEntry& e, Connection& c) {
 
 void Dispatcher::queueFrame(Connection& c, const Message& msg) {
     if (c.state == ConnState::Closed || c.state == ConnState::Connecting) return;
-    codec::BinaryCodec::encode(msg, c.wbuf);
+    c.codec->encode(msg, c.wbuf);
     stats_.frames_out.fetch_add(1, std::memory_order_relaxed);
     if (c.wbuf.size() - c.wpos > cfg_.write_buffer_cap) {
         closeConnection(c);  // slow reader (Section 3.2 backpressure)
@@ -488,7 +508,8 @@ void Dispatcher::startPush(ClientEntry& e) {
         stats_.push_failed.fetch_add(1, std::memory_order_relaxed);
         return;  // no retry: next update for this client tries again
     }
-    Connection& c = addConnection(fd, addr, in_progress ? ConnState::Connecting : ConnState::Open, true);
+    Connection& c = addConnection(fd, addr, in_progress ? ConnState::Connecting : ConnState::Open,
+                                  true, e.protocol);
     c.client = &e;
     e.push_conn_id = c.conn_id;
     if (!in_progress) {
@@ -548,9 +569,11 @@ void Dispatcher::checkDeadlines() {
 
 // ========================================================== connection lifetime
 
-Connection& Dispatcher::addConnection(int fd, const sockaddr_in& peer, ConnState state, bool push) {
+Connection& Dispatcher::addConnection(int fd, const sockaddr_in& peer, ConnState state, bool push,
+                                      Protocol protocol) {
     const uint64_t id = next_conn_id_++;
-    auto conn = std::make_unique<Connection>(id, fd, peer, state, push, cfg_.max_frame_len);
+    auto conn = std::make_unique<Connection>(id, fd, peer, state, push,
+                                             makeStreamCodec(protocol, symbols_, cfg_.max_frame_len));
     Connection& ref = *conn;
     conns_.emplace(id, std::move(conn));
     fd_conn_[fd] = id;

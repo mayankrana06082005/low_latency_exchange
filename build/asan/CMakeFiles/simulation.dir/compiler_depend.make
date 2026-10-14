@@ -3,7 +3,9 @@
 
 CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/CN/src/apps/simulation_main.cpp \
   /home/mayank/Desktop/CN/include/client/ClientSession.hpp \
+  /home/mayank/Desktop/CN/include/client/OrderLedger.hpp \
   /home/mayank/Desktop/CN/include/client/RawConnection.hpp \
+  /home/mayank/Desktop/CN/include/client/SessionTracer.hpp \
   /home/mayank/Desktop/CN/include/client/UdpListener.hpp \
   /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp \
   /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
@@ -128,6 +130,7 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/cstring \
   /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/debug/assertions.h \
@@ -198,6 +201,8 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
@@ -356,9 +361,11 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
-/usr/include/c++/13/cstdlib:
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
-/usr/include/c++/13/cstdint:
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/13/clocale:
 
@@ -414,11 +421,13 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/stl_multiset.h:
 
+/usr/include/c++/13/cstdint:
+
+/usr/include/c++/13/cstdlib:
+
 /usr/include/c++/13/bits/stl_deque.h:
 
 /usr/include/c++/13/bits/refwrap.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/13/cctype:
 
@@ -431,6 +440,8 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/ext/atomicity.h:
 
 /usr/include/c++/13/tr1/gamma.tcc:
+
+/usr/include/strings.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
@@ -452,23 +463,15 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/memoryfwd.h:
 
-/usr/include/c++/13/cstdio:
+/usr/include/c++/13/bits/memory_resource.h:
 
-/usr/include/c++/13/bits/atomic_lockfree_defines.h:
+/usr/include/c++/13/bits/this_thread_sleep.h:
 
-/usr/include/x86_64-linux-gnu/asm/errno.h:
+/usr/include/c++/13/bits/shared_ptr_base.h:
 
-/usr/include/c++/13/bits/stringfwd.h:
+/usr/include/wchar.h:
 
-/usr/include/c++/13/bits/uniform_int_dist.h:
-
-/usr/include/c++/13/backward/binders.h:
-
-/usr/include/c++/13/bits/exception_ptr.h:
-
-/usr/include/c++/13/bits/vector.tcc:
-
-/usr/include/c++/13/optional:
+/usr/include/c++/13/bits/invoke.h:
 
 /usr/include/asm-generic/socket.h:
 
@@ -477,28 +480,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
-
-/usr/include/c++/13/bits/string_view.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/asm-generic/sockios.h:
-
-/usr/include/c++/13/bits/move.h:
-
-/home/mayank/Desktop/CN/include/server/Exchange.hpp:
-
-/usr/include/c++/13/bits/hashtable_policy.h:
-
-/usr/include/c++/13/bits/std_function.h:
-
-/usr/include/c++/13/bits/char_traits.h:
-
-/usr/include/netinet/in.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
-/usr/include/c++/13/backward/auto_ptr.h:
 
 /home/mayank/Desktop/CN/include/net/UdpPublisher.hpp:
 
@@ -520,11 +501,41 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/bits/exception_defines.h:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
+/usr/include/c++/13/bits/string_view.tcc:
 
-/usr/include/c++/13/bit:
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/usr/include/c++/13/bits/basic_string.tcc:
+/home/mayank/Desktop/CN/include/server/Exchange.hpp:
+
+/usr/include/c++/13/bits/hashtable_policy.h:
+
+/usr/include/c++/13/bits/std_function.h:
+
+/usr/include/c++/13/bits/char_traits.h:
+
+/usr/include/netinet/in.h:
+
+/usr/include/asm-generic/sockios.h:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/c++/13/bits/stringfwd.h:
+
+/usr/include/c++/13/bits/uniform_int_dist.h:
+
+/usr/include/c++/13/backward/binders.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/c++/13/bits/stl_multimap.h:
+
+/usr/include/c++/13/bits/exception_ptr.h:
+
+/usr/include/c++/13/bits/vector.tcc:
+
+/usr/include/c++/13/optional:
+
+/home/mayank/Desktop/CN/include/client/OrderLedger.hpp:
 
 /usr/include/c++/13/bits/enable_special_members.h:
 
@@ -533,6 +544,10 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /home/mayank/Desktop/CN/include/core/Worker.hpp:
 
 /usr/include/c++/13/vector:
+
+/home/mayank/Desktop/CN/include/client/SessionTracer.hpp:
+
+/usr/include/pthread.h:
 
 /usr/include/c++/13/cerrno:
 
@@ -550,17 +565,11 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /home/mayank/Desktop/CN/include/net/Dispatcher.hpp:
 
+/usr/include/c++/13/cstring:
+
 /usr/include/c++/13/bits/deque.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/c++/13/bits/this_thread_sleep.h:
-
-/usr/include/c++/13/bits/memory_resource.h:
-
-/usr/include/c++/13/bits/shared_ptr_base.h:
-
-/usr/include/wchar.h:
 
 /usr/include/c++/13/bits/shared_ptr.h:
 
@@ -579,6 +588,22 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/bits/concept_check.h:
 
 /usr/include/c++/13/bits/alloc_traits.h:
+
+/usr/include/c++/13/bits/atomic_lockfree_defines.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/bit:
+
+/usr/include/c++/13/bits/basic_string.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/c++/13/bits/charconv.h:
+
+/usr/include/c++/13/cstdio:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
@@ -608,6 +633,20 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /home/mayank/Desktop/CN/include/net/ClientRegistry.hpp:
 
+/usr/include/c++/13/tr1/legendre_function.tcc:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/13/typeinfo:
+
+/home/mayank/Desktop/CN/include/core/MarketConfig.hpp:
+
+/usr/include/c++/13/bits/exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/c++/13/backward/auto_ptr.h:
+
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/c++/13/bits/algorithmfwd.h:
@@ -622,18 +661,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/c++/13/iosfwd:
 
-/usr/include/c++/13/tr1/legendre_function.tcc:
-
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
-/usr/include/c++/13/typeinfo:
-
-/home/mayank/Desktop/CN/include/core/MarketConfig.hpp:
-
-/usr/include/c++/13/bits/exception.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
 /usr/include/c++/13/bits/specfun.h:
 
 /home/mayank/Desktop/CN/include/net/Poller.hpp:
@@ -643,8 +670,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/bits/basic_string.h:
 
 /usr/include/c++/13/tr1/poly_laguerre.tcc:
-
-/usr/include/c++/13/bits/invoke.h:
 
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
@@ -800,8 +825,6 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 
 /usr/include/features.h:
 
-/usr/include/pthread.h:
-
 /usr/include/sched.h:
 
 /usr/include/endian.h:
@@ -821,6 +844,8 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/c++/13/cwchar:
 
 /usr/include/x86_64-linux-gnu/asm/socket.h:
+
+/usr/include/string.h:
 
 /usr/include/x86_64-linux-gnu/asm/posix_types.h:
 
@@ -895,13 +920,3 @@ CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o: /home/mayank/Desktop/C
 /usr/include/x86_64-linux-gnu/asm/sockios.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
-/usr/include/c++/13/bits/stl_multimap.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
-
-/usr/include/c++/13/bits/charconv.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:

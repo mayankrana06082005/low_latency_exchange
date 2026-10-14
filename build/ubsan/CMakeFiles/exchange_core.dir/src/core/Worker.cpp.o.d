@@ -91,6 +91,7 @@ CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o: \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/refwrap.h /usr/include/c++/13/bits/vector.tcc \
+ /home/mayank/Desktop/CN/include/core/Ewma.hpp \
  /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
  /usr/include/c++/13/string /usr/include/c++/13/bits/stringfwd.h \
  /usr/include/c++/13/bits/char_traits.h \

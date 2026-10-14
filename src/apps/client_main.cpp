@@ -111,6 +111,7 @@ int main(int argc, char** argv) {
         else if (arg == "--udp-port") udp_port = static_cast<uint16_t>(std::atoi(argv[i + 1]));
         else if (arg == "--push") push = std::string(argv[i + 1]) != "off";
         else if (arg == "--trace") trace_frames = std::string(argv[i + 1]) == "on";
+        else if (arg == "--protocol") cfg.protocol = std::string(argv[i + 1]) == "text" ? net::Protocol::Text : net::Protocol::Binary;
     }
 
     client::ClientSession session(cfg);
@@ -158,8 +159,8 @@ int main(int argc, char** argv) {
             symbol_names[t.symbol_id] = core::tickerName(t.ticker);
         }
     }
-    std::printf("connected, client_id=%llu, callback port %u, UDP port %u\n",
-                (unsigned long long)session.clientId(), session.callbackPort(), udp.port());
+    std::printf("connected (%s protocol), client_id=%llu, callback port %u, UDP port %u\n",
+                net::nameOf(cfg.protocol), (unsigned long long)session.clientId(), session.callbackPort(), udp.port());
     help();
 
     auto symbolOf = [&symbols](const std::string& s) -> uint16_t {

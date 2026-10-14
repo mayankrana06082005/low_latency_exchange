@@ -10,6 +10,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "codec/SymbolTable.hpp"
+#include "core/LatencyRecorder.hpp"
 #include "core/MarketConfig.hpp"
 #include "core/SpscQueue.hpp"
 #include "core/WorkItem.hpp"
@@ -22,7 +24,8 @@ namespace net {
 enum class IdlePolicy { Never, Fixed };  // D23
 
 struct DispatcherConfig {
-    uint16_t port = 9000;  // 0 = pick a free port
+    uint16_t port = 9000;  // binary protocol; 0 = pick a free port
+    int text_port = -1;    // HTTP/1.1 + JSON baseline; -1 = disabled, 0 = pick a free port
     IdlePolicy idle_policy = IdlePolicy::Fixed;
     std::chrono::milliseconds idle_timeout{1000};  // x (D14)
     std::chrono::milliseconds drain_grace{100};    // g
@@ -30,6 +33,9 @@ struct DispatcherConfig {
     uint32_t max_frame_len = wire::DEFAULT_MAX_FRAME_LEN;
     size_t write_buffer_cap = 4 * 1024 * 1024;
     int items_per_queue = 64;  // out-queue budget per loop iteration
+    // Benchmark 3: time from end of socket read to worker-queue push, per order/cancel.
+    bool record_dispatch_latency = false;
+    size_t dispatch_latency_capacity = 4 * 1024 * 1024;
 };
 
 struct DispatcherStats {
@@ -61,6 +67,9 @@ public:
 
     bool open();  // binds the listening socket
     uint16_t port() const { return port_; }
+    uint16_t textPort() const { return text_port_; }
+    // Only read after the dispatcher thread has stopped.
+    const core::LatencyRecorder& dispatchLatency() const { return dispatch_latency_; }
     void run(const std::atomic<bool>& running);
     void runOnce();
     const DispatcherStats& stats() const { return stats_; }
@@ -70,7 +79,7 @@ private:
 
     // Step 1: sockets in.
     void pollSockets();
-    void acceptAll();
+    void acceptAll(int listen_fd, Protocol protocol);
     void readFrom(Connection& c);
     void handleFrame(Connection& c, const wire::Message& msg);
     ClientEntry* resolveClient(Connection& c, const wire::FrameHeader& h);
@@ -112,7 +121,8 @@ private:
     void checkDeadlines();
 
     // Connection lifetime.
-    Connection& addConnection(int fd, const sockaddr_in& peer, ConnState state, bool push);
+    Connection& addConnection(int fd, const sockaddr_in& peer, ConnState state, bool push,
+                              Protocol protocol);
     Connection* findConn(uint64_t conn_id);
     Connection* liveConnection(ClientEntry& e);
     void closeConnection(Connection& c);
@@ -125,9 +135,12 @@ private:
     std::vector<int16_t> symbol_worker_;                       // symbol_id -> worker, -1 unknown
     uint32_t market_mask_ = 0;
     wire::ListFeedRsp list_feed_;
+    std::shared_ptr<const codec::SymbolTable> symbols_;
 
     int listen_fd_ = -1;
     uint16_t port_ = 0;
+    int text_listen_fd_ = -1;
+    uint16_t text_port_ = 0;
     Poller poller_;
     std::vector<PollEvent> events_;
     std::unordered_map<uint64_t, std::unique_ptr<Connection>> conns_;
@@ -144,6 +157,8 @@ private:
     std::unordered_map<uint64_t, uint64_t> endpoint_owner_;  // endpointKey -> client_id
 
     Clock::time_point now_;
+    Clock::time_point read_time_;  // when the current read() returned
+    core::LatencyRecorder dispatch_latency_;
     DispatcherStats stats_;
 };
 

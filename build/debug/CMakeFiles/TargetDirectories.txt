@@ -2,6 +2,7 @@
 /home/mayank/Desktop/CN/build/debug/CMakeFiles/exchange_server.dir
 /home/mayank/Desktop/CN/build/debug/CMakeFiles/exchange_client.dir
 /home/mayank/Desktop/CN/build/debug/CMakeFiles/simulation.dir
+/home/mayank/Desktop/CN/build/debug/CMakeFiles/benchmark.dir
 /home/mayank/Desktop/CN/build/debug/CMakeFiles/unit_tests.dir
 /home/mayank/Desktop/CN/build/debug/CMakeFiles/test.dir
 /home/mayank/Desktop/CN/build/debug/CMakeFiles/edit_cache.dir

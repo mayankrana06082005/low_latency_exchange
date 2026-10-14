@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/mayank/Desktop/CN/tests/test_frame_reader.cpp" "CMakeFiles/unit_tests.dir/tests/test_frame_reader.cpp.o" "gcc" "CMakeFiles/unit_tests.dir/tests/test_frame_reader.cpp.o.d"
   "/home/mayank/Desktop/CN/tests/test_integration.cpp" "CMakeFiles/unit_tests.dir/tests/test_integration.cpp.o" "gcc" "CMakeFiles/unit_tests.dir/tests/test_integration.cpp.o.d"
   "/home/mayank/Desktop/CN/tests/test_main.cpp" "CMakeFiles/unit_tests.dir/tests/test_main.cpp.o" "gcc" "CMakeFiles/unit_tests.dir/tests/test_main.cpp.o.d"
+  "/home/mayank/Desktop/CN/tests/test_text_codec.cpp" "CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.o" "gcc" "CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

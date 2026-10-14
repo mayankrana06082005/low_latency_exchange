@@ -97,10 +97,38 @@ CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/codec/BinaryCodec.cpp -o CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.s
 
+CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o: CMakeFiles/exchange_core.dir/flags.make
+CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o: /home/mayank/Desktop/CN/src/codec/SymbolTable.cpp
+CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o -MF CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o.d -o CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o -c /home/mayank/Desktop/CN/src/codec/SymbolTable.cpp
+
+CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mayank/Desktop/CN/src/codec/SymbolTable.cpp > CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.i
+
+CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/codec/SymbolTable.cpp -o CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.s
+
+CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o: CMakeFiles/exchange_core.dir/flags.make
+CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o: /home/mayank/Desktop/CN/src/codec/TextCodec.cpp
+CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o -MF CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o.d -o CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o -c /home/mayank/Desktop/CN/src/codec/TextCodec.cpp
+
+CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mayank/Desktop/CN/src/codec/TextCodec.cpp > CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.i
+
+CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/codec/TextCodec.cpp -o CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.s
+
 CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o: /home/mayank/Desktop/CN/src/core/MarketConfig.cpp
 CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o -MF CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o.d -o CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o -c /home/mayank/Desktop/CN/src/core/MarketConfig.cpp
 
 CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.i: cmake_force
@@ -114,7 +142,7 @@ CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o: /home/mayank/Desktop/CN/src/core/OrderBook.cpp
 CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o -MF CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o.d -o CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o -c /home/mayank/Desktop/CN/src/core/OrderBook.cpp
 
 CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.i: cmake_force
@@ -128,7 +156,7 @@ CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o: /home/mayank/Desktop/CN/src/core/Worker.cpp
 CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o -MF CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o.d -o CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o -c /home/mayank/Desktop/CN/src/core/Worker.cpp
 
 CMakeFiles/exchange_core.dir/src/core/Worker.cpp.i: cmake_force
@@ -142,7 +170,7 @@ CMakeFiles/exchange_core.dir/src/core/Worker.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o: /home/mayank/Desktop/CN/src/net/Socket.cpp
 CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o -c /home/mayank/Desktop/CN/src/net/Socket.cpp
 
 CMakeFiles/exchange_core.dir/src/net/Socket.cpp.i: cmake_force
@@ -156,7 +184,7 @@ CMakeFiles/exchange_core.dir/src/net/Socket.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o: /home/mayank/Desktop/CN/src/net/FrameReader.cpp
 CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o -c /home/mayank/Desktop/CN/src/net/FrameReader.cpp
 
 CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.i: cmake_force
@@ -167,10 +195,24 @@ CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/net/FrameReader.cpp -o CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.s
 
+CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o: CMakeFiles/exchange_core.dir/flags.make
+CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o: /home/mayank/Desktop/CN/src/net/StreamCodec.cpp
+CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o -c /home/mayank/Desktop/CN/src/net/StreamCodec.cpp
+
+CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mayank/Desktop/CN/src/net/StreamCodec.cpp > CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.i
+
+CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/net/StreamCodec.cpp -o CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.s
+
 CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o: /home/mayank/Desktop/CN/src/net/Poller.cpp
 CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o -c /home/mayank/Desktop/CN/src/net/Poller.cpp
 
 CMakeFiles/exchange_core.dir/src/net/Poller.cpp.i: cmake_force
@@ -184,7 +226,7 @@ CMakeFiles/exchange_core.dir/src/net/Poller.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o: /home/mayank/Desktop/CN/src/net/Mailbox.cpp
 CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o -c /home/mayank/Desktop/CN/src/net/Mailbox.cpp
 
 CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.i: cmake_force
@@ -198,7 +240,7 @@ CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o: /home/mayank/Desktop/CN/src/net/ClientRegistry.cpp
 CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o -c /home/mayank/Desktop/CN/src/net/ClientRegistry.cpp
 
 CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.i: cmake_force
@@ -212,7 +254,7 @@ CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o: /home/mayank/Desktop/CN/src/net/UdpPublisher.cpp
 CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o -c /home/mayank/Desktop/CN/src/net/UdpPublisher.cpp
 
 CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.i: cmake_force
@@ -226,7 +268,7 @@ CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o: /home/mayank/Desktop/CN/src/net/Dispatcher.cpp
 CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o -MF CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o.d -o CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o -c /home/mayank/Desktop/CN/src/net/Dispatcher.cpp
 
 CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.i: cmake_force
@@ -240,7 +282,7 @@ CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o: /home/mayank/Desktop/CN/src/server/Exchange.cpp
 CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o -MF CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o.d -o CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o -c /home/mayank/Desktop/CN/src/server/Exchange.cpp
 
 CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.i: cmake_force
@@ -254,7 +296,7 @@ CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o: /home/mayank/Desktop/CN/src/client/ClientSession.cpp
 CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o -MF CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o.d -o CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o -c /home/mayank/Desktop/CN/src/client/ClientSession.cpp
 
 CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.i: cmake_force
@@ -268,7 +310,7 @@ CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o: /home/mayank/Desktop/CN/src/client/UdpListener.cpp
 CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o -MF CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o.d -o CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o -c /home/mayank/Desktop/CN/src/client/UdpListener.cpp
 
 CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.i: cmake_force
@@ -282,7 +324,7 @@ CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.s: cmake_force
 CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o: CMakeFiles/exchange_core.dir/flags.make
 CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o: /home/mayank/Desktop/CN/src/client/RawConnection.cpp
 CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o -MF CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o.d -o CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o -c /home/mayank/Desktop/CN/src/client/RawConnection.cpp
 
 CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.i: cmake_force
@@ -293,15 +335,46 @@ CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/client/RawConnection.cpp -o CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.s
 
+CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o: CMakeFiles/exchange_core.dir/flags.make
+CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o: /home/mayank/Desktop/CN/src/client/OrderLedger.cpp
+CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o -MF CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o.d -o CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o -c /home/mayank/Desktop/CN/src/client/OrderLedger.cpp
+
+CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mayank/Desktop/CN/src/client/OrderLedger.cpp > CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.i
+
+CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/client/OrderLedger.cpp -o CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.s
+
+CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o: CMakeFiles/exchange_core.dir/flags.make
+CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o: /home/mayank/Desktop/CN/src/client/SessionTracer.cpp
+CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o: CMakeFiles/exchange_core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o -MF CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o.d -o CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o -c /home/mayank/Desktop/CN/src/client/SessionTracer.cpp
+
+CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mayank/Desktop/CN/src/client/SessionTracer.cpp > CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.i
+
+CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mayank/Desktop/CN/src/client/SessionTracer.cpp -o CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.s
+
 # Object files for target exchange_core
 exchange_core_OBJECTS = \
 "CMakeFiles/exchange_core.dir/src/wire/Messages.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.o" \
+"CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o" \
+"CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o" \
+"CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o" \
@@ -310,18 +383,23 @@ exchange_core_OBJECTS = \
 "CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o" \
 "CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o" \
-"CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o"
+"CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o" \
+"CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o" \
+"CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o"
 
 # External object files for target exchange_core
 exchange_core_EXTERNAL_OBJECTS =
 
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/wire/Messages.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.o
+libexchange_core.a: CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o
+libexchange_core.a: CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o
+libexchange_core.a: CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o
@@ -331,9 +409,11 @@ libexchange_core.a: CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o
+libexchange_core.a: CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o
+libexchange_core.a: CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o
 libexchange_core.a: CMakeFiles/exchange_core.dir/build.make
 libexchange_core.a: CMakeFiles/exchange_core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX static library libexchange_core.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mayank/Desktop/CN/build/ubsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX static library libexchange_core.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/exchange_core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/exchange_core.dir/link.txt --verbose=$(VERBOSE)
 

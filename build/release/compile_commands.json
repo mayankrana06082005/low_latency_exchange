@@ -1,0 +1,212 @@
+[
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/wire/Messages.cpp.o -c /home/mayank/Desktop/CN/src/wire/Messages.cpp",
+  "file": "/home/mayank/Desktop/CN/src/wire/Messages.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/wire/Messages.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.o -c /home/mayank/Desktop/CN/src/codec/BinaryCodec.cpp",
+  "file": "/home/mayank/Desktop/CN/src/codec/BinaryCodec.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/codec/BinaryCodec.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o -c /home/mayank/Desktop/CN/src/codec/SymbolTable.cpp",
+  "file": "/home/mayank/Desktop/CN/src/codec/SymbolTable.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/codec/SymbolTable.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o -c /home/mayank/Desktop/CN/src/codec/TextCodec.cpp",
+  "file": "/home/mayank/Desktop/CN/src/codec/TextCodec.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/codec/TextCodec.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o -c /home/mayank/Desktop/CN/src/core/MarketConfig.cpp",
+  "file": "/home/mayank/Desktop/CN/src/core/MarketConfig.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/core/MarketConfig.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o -c /home/mayank/Desktop/CN/src/core/OrderBook.cpp",
+  "file": "/home/mayank/Desktop/CN/src/core/OrderBook.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/core/OrderBook.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o -c /home/mayank/Desktop/CN/src/core/Worker.cpp",
+  "file": "/home/mayank/Desktop/CN/src/core/Worker.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/core/Worker.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o -c /home/mayank/Desktop/CN/src/net/Socket.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/Socket.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/Socket.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o -c /home/mayank/Desktop/CN/src/net/FrameReader.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/FrameReader.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/FrameReader.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o -c /home/mayank/Desktop/CN/src/net/StreamCodec.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/StreamCodec.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/StreamCodec.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o -c /home/mayank/Desktop/CN/src/net/Poller.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/Poller.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/Poller.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o -c /home/mayank/Desktop/CN/src/net/Mailbox.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/Mailbox.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/Mailbox.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o -c /home/mayank/Desktop/CN/src/net/ClientRegistry.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/ClientRegistry.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/ClientRegistry.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o -c /home/mayank/Desktop/CN/src/net/UdpPublisher.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/UdpPublisher.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/UdpPublisher.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o -c /home/mayank/Desktop/CN/src/net/Dispatcher.cpp",
+  "file": "/home/mayank/Desktop/CN/src/net/Dispatcher.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/net/Dispatcher.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o -c /home/mayank/Desktop/CN/src/server/Exchange.cpp",
+  "file": "/home/mayank/Desktop/CN/src/server/Exchange.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/server/Exchange.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o -c /home/mayank/Desktop/CN/src/client/ClientSession.cpp",
+  "file": "/home/mayank/Desktop/CN/src/client/ClientSession.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o -c /home/mayank/Desktop/CN/src/client/UdpListener.cpp",
+  "file": "/home/mayank/Desktop/CN/src/client/UdpListener.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/client/UdpListener.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o -c /home/mayank/Desktop/CN/src/client/RawConnection.cpp",
+  "file": "/home/mayank/Desktop/CN/src/client/RawConnection.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/client/RawConnection.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o -c /home/mayank/Desktop/CN/src/client/OrderLedger.cpp",
+  "file": "/home/mayank/Desktop/CN/src/client/OrderLedger.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/client/OrderLedger.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -isystem /home/mayank/Desktop/CN/build/release/_deps/nlohmann_json-src/single_include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o -c /home/mayank/Desktop/CN/src/client/SessionTracer.cpp",
+  "file": "/home/mayank/Desktop/CN/src/client/SessionTracer.cpp",
+  "output": "CMakeFiles/exchange_core.dir/src/client/SessionTracer.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o -c /home/mayank/Desktop/CN/src/apps/server_main.cpp",
+  "file": "/home/mayank/Desktop/CN/src/apps/server_main.cpp",
+  "output": "CMakeFiles/exchange_server.dir/src/apps/server_main.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o -c /home/mayank/Desktop/CN/src/apps/client_main.cpp",
+  "file": "/home/mayank/Desktop/CN/src/apps/client_main.cpp",
+  "output": "CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o -c /home/mayank/Desktop/CN/src/apps/simulation_main.cpp",
+  "file": "/home/mayank/Desktop/CN/src/apps/simulation_main.cpp",
+  "output": "CMakeFiles/simulation.dir/src/apps/simulation_main.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o -c /home/mayank/Desktop/CN/src/apps/benchmark_main.cpp",
+  "file": "/home/mayank/Desktop/CN/src/apps/benchmark_main.cpp",
+  "output": "CMakeFiles/benchmark.dir/src/apps/benchmark_main.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/benchmark.dir/src/bench/Report.cpp.o -c /home/mayank/Desktop/CN/src/bench/Report.cpp",
+  "file": "/home/mayank/Desktop/CN/src/bench/Report.cpp",
+  "output": "CMakeFiles/benchmark.dir/src/bench/Report.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/benchmark.dir/src/bench/LoadClient.cpp.o -c /home/mayank/Desktop/CN/src/bench/LoadClient.cpp",
+  "file": "/home/mayank/Desktop/CN/src/bench/LoadClient.cpp",
+  "output": "CMakeFiles/benchmark.dir/src/bench/LoadClient.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_main.cpp.o -c /home/mayank/Desktop/CN/tests/test_main.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_main.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_main.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_byte_io.cpp.o -c /home/mayank/Desktop/CN/tests/test_byte_io.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_byte_io.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_byte_io.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_binary_codec.cpp.o -c /home/mayank/Desktop/CN/tests/test_binary_codec.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_binary_codec.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_binary_codec.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_frame_reader.cpp.o -c /home/mayank/Desktop/CN/tests/test_frame_reader.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_frame_reader.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_frame_reader.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_core.cpp.o -c /home/mayank/Desktop/CN/tests/test_core.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_core.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_core.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.o -c /home/mayank/Desktop/CN/tests/test_text_codec.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_text_codec.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_text_codec.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release",
+  "command": "/usr/bin/c++  -I/home/mayank/Desktop/CN/include -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/unit_tests.dir/tests/test_integration.cpp.o -c /home/mayank/Desktop/CN/tests/test_integration.cpp",
+  "file": "/home/mayank/Desktop/CN/tests/test_integration.cpp",
+  "output": "CMakeFiles/unit_tests.dir/tests/test_integration.cpp.o"
+},
+{
+  "directory": "/home/mayank/Desktop/CN/build/release/_deps/doctest-build",
+  "command": "/usr/bin/c++ -DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN -I/home/mayank/Desktop/CN/build/release/_deps/doctest-src -O3 -DNDEBUG -std=c++11 -Wall -Wextra -Wpedantic -o CMakeFiles/doctest_with_main.dir/doctest/parts/doctest.cpp.o -c /home/mayank/Desktop/CN/build/release/_deps/doctest-src/doctest/parts/doctest.cpp",
+  "file": "/home/mayank/Desktop/CN/build/release/_deps/doctest-src/doctest/parts/doctest.cpp",
+  "output": "_deps/doctest-build/CMakeFiles/doctest_with_main.dir/doctest/parts/doctest.cpp.o"
+}
+]

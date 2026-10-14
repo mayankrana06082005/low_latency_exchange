@@ -104,25 +104,52 @@ CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/13/bits/std_abs.h /usr/include/c++/13/optional \
- /usr/include/c++/13/exception /usr/include/c++/13/bits/exception_ptr.h \
- /usr/include/c++/13/bits/cxxabi_init_exception.h \
- /usr/include/c++/13/bits/nested_exception.h /usr/include/c++/13/string \
- /usr/include/c++/13/bits/stringfwd.h \
- /usr/include/c++/13/bits/char_traits.h \
- /usr/include/c++/13/bits/postypes.h /usr/include/c++/13/cwchar \
- /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /usr/include/c++/13/bits/std_abs.h /usr/include/c++/13/memory \
+ /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/13/bits/align.h /usr/include/c++/13/bits/unique_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr.h /usr/include/c++/13/iosfwd \
+ /usr/include/c++/13/bits/stringfwd.h /usr/include/c++/13/bits/postypes.h \
+ /usr/include/c++/13/cwchar /usr/include/wchar.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/c++/13/bits/shared_ptr_base.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
+ /usr/include/c++/13/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
+ /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+ /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/13/ext/concurrence.h /usr/include/c++/13/exception \
+ /usr/include/c++/13/bits/exception_ptr.h \
+ /usr/include/c++/13/bits/cxxabi_init_exception.h \
+ /usr/include/c++/13/bits/nested_exception.h \
+ /usr/include/c++/13/bits/shared_ptr_atomic.h \
+ /usr/include/c++/13/bits/atomic_base.h \
+ /usr/include/c++/13/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/13/backward/auto_ptr.h \
+ /usr/include/c++/13/pstl/glue_memory_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h /usr/include/c++/13/optional \
+ /usr/include/c++/13/string /usr/include/c++/13/bits/char_traits.h \
  /usr/include/c++/13/bits/localefwd.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
  /usr/include/c++/13/clocale /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/13/iosfwd \
- /usr/include/c++/13/cctype /usr/include/ctype.h \
- /usr/include/c++/13/bits/ostream_insert.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/13/cctype \
+ /usr/include/ctype.h /usr/include/c++/13/bits/ostream_insert.h \
  /usr/include/c++/13/bits/cxxabi_forced.h \
  /usr/include/c++/13/bits/basic_string.h /usr/include/c++/13/string_view \
  /usr/include/c++/13/bits/string_view.tcc \
@@ -139,11 +166,15 @@ CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/13/bits/charconv.h \
  /usr/include/c++/13/bits/basic_string.tcc \
- /home/mayank/Desktop/CN/include/net/FrameReader.hpp \
- /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
- /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp \
+ /home/mayank/Desktop/CN/include/codec/SymbolTable.hpp \
  /home/mayank/Desktop/CN/include/wire/Messages.hpp \
  /usr/include/c++/13/variant /usr/include/c++/13/bits/parse_numbers.h \
+ /home/mayank/Desktop/CN/include/net/StreamCodec.hpp \
+ /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h \
+ /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp \
+ /home/mayank/Desktop/CN/include/net/FrameReader.hpp \
+ /home/mayank/Desktop/CN/include/net/ByteBuffer.hpp \
+ /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/poll.h /usr/include/x86_64-linux-gnu/sys/poll.h \
  /usr/include/x86_64-linux-gnu/bits/poll.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
@@ -164,22 +195,8 @@ CMakeFiles/exchange_core.dir/src/client/ClientSession.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
  /usr/include/c++/13/chrono /usr/include/c++/13/bits/chrono.h \
  /usr/include/c++/13/ratio /usr/include/c++/13/limits \
- /usr/include/c++/13/ctime /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
- /usr/include/c++/13/thread /usr/include/c++/13/bits/std_thread.h \
- /usr/include/c++/13/bits/unique_ptr.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h \
- /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
- /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
- /usr/include/x86_64-linux-gnu/bits/setjmp.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/include/c++/13/ctime /usr/include/c++/13/thread \
+ /usr/include/c++/13/bits/std_thread.h \
  /usr/include/c++/13/bits/this_thread_sleep.h \
  /home/mayank/Desktop/CN/include/net/Socket.hpp /usr/include/netinet/in.h \
  /usr/include/x86_64-linux-gnu/bits/in.h

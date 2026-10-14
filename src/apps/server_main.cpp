@@ -19,8 +19,9 @@ void onSignal(int) { g_stop.store(true); }
 
 void usage() {
     std::puts(
-        "usage: exchange_server [--port N] [--idle fixed|never] [--idle-ms N]\n"
-        "                       [--grace-ms N] [--push-timeout-ms N] [--snapshot-ms N]");
+        "usage: exchange_server [--port N] [--text-port N|off] [--idle fixed|never] [--idle-ms N]\n"
+        "                       [--grace-ms N] [--push-timeout-ms N] [--snapshot-ms N]\n"
+        "                       [--snapshot-policy fixed|ewma] [--record-latency on]");
 }
 
 bool parseArgs(int argc, char** argv, server::ExchangeConfig& cfg) {
@@ -31,6 +32,18 @@ bool parseArgs(int argc, char** argv, server::ExchangeConfig& cfg) {
         const char* value = argv[++i];
         if (arg == "--port") {
             cfg.dispatcher.port = static_cast<uint16_t>(std::atoi(value));
+        } else if (arg == "--text-port") {
+            cfg.dispatcher.text_port = std::strcmp(value, "off") == 0 ? -1 : std::atoi(value);
+        } else if (arg == "--snapshot-policy") {
+            if (std::strcmp(value, "ewma") == 0) {
+                cfg.snapshot_policy = core::SnapshotPolicy::Ewma;
+            } else if (std::strcmp(value, "fixed") == 0) {
+                cfg.snapshot_policy = core::SnapshotPolicy::Fixed;
+            } else {
+                return false;
+            }
+        } else if (arg == "--record-latency") {
+            cfg.dispatcher.record_dispatch_latency = std::strcmp(value, "on") == 0;
         } else if (arg == "--idle") {
             if (std::strcmp(value, "never") == 0) {
                 cfg.dispatcher.idle_policy = net::IdlePolicy::Never;
@@ -71,6 +84,7 @@ void printStats(const server::Exchange& ex) {
 
 int main(int argc, char** argv) {
     server::ExchangeConfig cfg;
+    cfg.dispatcher.text_port = 9001;
     if (!parseArgs(argc, argv, cfg)) {
         usage();
         return 2;
@@ -83,10 +97,13 @@ int main(int argc, char** argv) {
     std::signal(SIGINT, onSignal);
     std::signal(SIGTERM, onSignal);
 
-    std::printf("exchange listening on TCP port %u, %zu workers, idle %s %lld ms\n",
-                exchange.port(), cfg.market.groups.size(),
+    std::printf("exchange: binary protocol on TCP port %u", exchange.port());
+    if (cfg.dispatcher.text_port >= 0) std::printf(", HTTP/1.1+JSON on TCP port %u", exchange.textPort());
+    std::printf("\n  %zu workers, idle %s %lld ms, snapshots %s %lld ms\n", cfg.market.groups.size(),
                 cfg.dispatcher.idle_policy == net::IdlePolicy::Fixed ? "fixed" : "never",
-                (long long)cfg.dispatcher.idle_timeout.count());
+                (long long)cfg.dispatcher.idle_timeout.count(),
+                cfg.snapshot_policy == core::SnapshotPolicy::Ewma ? "EWMA, dt_safety" : "every",
+                (long long)cfg.snapshot_interval.count());
     for (const auto& g : cfg.market.groups) {
         std::printf("  group %u %-8s:", g.group_id, g.name.c_str());
         for (const auto& s : g.symbols) std::printf(" %s(%u)", s.ticker.c_str(), s.symbol_id);
@@ -105,5 +122,10 @@ int main(int argc, char** argv) {
     }
     exchange.stop();
     printStats(exchange);
+    if (cfg.dispatcher.record_dispatch_latency) {
+        const core::LatencySummary s = exchange.dispatchLatency().summarize();
+        std::printf("dispatch latency (us): count %zu p50 %.1f p99 %.1f p99.9 %.1f max %.1f\n", s.count,
+                    s.p50_us, s.p99_us, s.p999_us, s.max_us);
+    }
     return 0;
 }

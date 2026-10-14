@@ -51,6 +51,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "_deps/nlohmann_json-subbuild/CMakeLists.txt"
   "_deps/doctest-subbuild/CMakeLists.txt"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "_deps/doctest-build/generated/doctestConfigVersion.cmake"
@@ -64,6 +65,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/exchange_server.dir/DependInfo.cmake"
   "CMakeFiles/exchange_client.dir/DependInfo.cmake"
   "CMakeFiles/simulation.dir/DependInfo.cmake"
+  "CMakeFiles/benchmark.dir/DependInfo.cmake"
   "CMakeFiles/unit_tests.dir/DependInfo.cmake"
   "_deps/doctest-build/CMakeFiles/doctest_with_main.dir/DependInfo.cmake"
   )

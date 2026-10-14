@@ -3,6 +3,8 @@
 
 CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/CN/src/apps/client_main.cpp \
   /home/mayank/Desktop/CN/include/client/ClientSession.hpp \
+  /home/mayank/Desktop/CN/include/client/OrderLedger.hpp \
+  /home/mayank/Desktop/CN/include/client/SessionTracer.hpp \
   /home/mayank/Desktop/CN/include/client/UdpListener.hpp \
   /home/mayank/Desktop/CN/include/codec/BinaryCodec.hpp \
   /home/mayank/Desktop/CN/include/core/MarketConfig.hpp \
@@ -101,6 +103,7 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/compare \
   /usr/include/c++/13/cstddef \
@@ -353,8 +356,6 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/sched.h:
 
-/usr/include/pthread.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/linux/errno.h:
@@ -447,6 +448,22 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/bits/localefwd.h:
 
+/usr/include/c++/13/bits/erase_if.h:
+
+/usr/include/c++/13/bits/cxxabi_forced.h:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/c++/13/bits/cpp_type_traits.h:
+
+/usr/include/c++/13/ostream:
+
+/usr/include/c++/13/bits/streambuf_iterator.h:
+
 /home/mayank/Desktop/CN/include/wire/Messages.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
@@ -454,8 +471,6 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/bits/basic_string.h:
 
 /usr/include/c++/13/atomic:
-
-/usr/include/c++/13/bits/invoke.h:
 
 /usr/include/c++/13/bits/node_handle.h:
 
@@ -469,49 +484,27 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/bits/basic_ios.h:
 
+/usr/include/c++/13/limits:
+
+/home/mayank/Desktop/CN/include/client/UdpListener.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
 /usr/include/c++/13/cerrno:
 
-/usr/include/alloca.h:
+/usr/include/c++/13/bits/invoke.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+/usr/include/pthread.h:
 
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+/home/mayank/Desktop/CN/include/client/SessionTracer.hpp:
 
-/home/mayank/Desktop/CN/include/core/MarketConfig.hpp:
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
-/usr/include/c++/13/ctime:
+/usr/include/locale.h:
 
-/usr/include/c++/13/bits/predefined_ops.h:
-
-/usr/include/c++/13/iosfwd:
-
-/usr/include/c++/13/cwchar:
-
-/home/mayank/Desktop/CN/include/client/ClientSession.hpp:
-
-/home/mayank/Desktop/CN/src/apps/client_main.cpp:
-
-/usr/include/c++/13/backward/binders.h:
-
-/usr/include/c++/13/bits/enable_special_members.h:
-
-/usr/include/c++/13/bits/basic_string.tcc:
-
-/usr/include/c++/13/bit:
-
-/usr/include/c++/13/bits/algorithmfwd.h:
-
-/usr/include/c++/13/bits/concept_check.h:
-
-/usr/include/c++/13/bits/alloc_traits.h:
-
-/usr/include/c++/13/new:
-
-/usr/include/c++/13/ext/alloc_traits.h:
+/usr/include/c++/13/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
@@ -527,6 +520,44 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/bits/istream.tcc:
 
+/usr/include/alloca.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/home/mayank/Desktop/CN/include/core/MarketConfig.hpp:
+
+/usr/include/c++/13/ctime:
+
+/usr/include/c++/13/cwchar:
+
+/home/mayank/Desktop/CN/include/client/ClientSession.hpp:
+
+/home/mayank/Desktop/CN/src/apps/client_main.cpp:
+
+/usr/include/c++/13/backward/binders.h:
+
+/usr/include/c++/13/bits/enable_special_members.h:
+
+/usr/include/c++/13/bits/basic_string.tcc:
+
+/usr/include/c++/13/bit:
+
+/usr/include/c++/13/mutex:
+
+/usr/include/c++/13/bits/unique_lock.h:
+
+/usr/include/c++/13/bits/algorithmfwd.h:
+
+/usr/include/c++/13/bits/concept_check.h:
+
+/usr/include/c++/13/bits/alloc_traits.h:
+
+/usr/include/c++/13/new:
+
+/usr/include/c++/13/ext/alloc_traits.h:
+
 /usr/include/c++/13/bits/locale_facets.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
@@ -537,21 +568,9 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/bits/chrono.h:
 
-/usr/include/c++/13/bits/move.h:
+/usr/include/c++/13/iosfwd:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
-
-/usr/include/c++/13/bits/cpp_type_traits.h:
-
-/usr/include/c++/13/ostream:
-
-/usr/include/c++/13/bits/streambuf_iterator.h:
-
-/usr/include/c++/13/bits/erase_if.h:
-
-/usr/include/c++/13/bits/cxxabi_forced.h:
+/usr/include/c++/13/bits/predefined_ops.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
 
@@ -566,6 +585,12 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/bits/range_access.h:
 
 /usr/include/c++/13/debug/debug.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/c++/13/map:
+
+/usr/include/c++/13/bits/refwrap.h:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
 
@@ -598,6 +623,8 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/cstddef:
 
 /usr/include/c++/13/bits/stl_algo.h:
+
+/usr/include/c++/13/chrono:
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
@@ -695,12 +722,6 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/debug/assertions.h:
 
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/locale.h:
-
-/usr/include/c++/13/ext/aligned_buffer.h:
-
 /usr/include/c++/13/cctype:
 
 /usr/include/c++/13/ext/atomicity.h:
@@ -713,6 +734,8 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 
 /usr/include/c++/13/ext/type_traits.h:
 
+/home/mayank/Desktop/CN/include/client/OrderLedger.hpp:
+
 /usr/include/c++/13/iostream:
 
 /usr/include/c++/13/functional:
@@ -720,17 +743,3 @@ CMakeFiles/exchange_client.dir/src/apps/client_main.cpp.o: /home/mayank/Desktop/
 /usr/include/c++/13/initializer_list:
 
 /usr/include/c++/13/istream:
-
-/home/mayank/Desktop/CN/include/client/UdpListener.hpp:
-
-/usr/include/c++/13/limits:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
-
-/usr/include/c++/13/bits/refwrap.h:
-
-/usr/include/c++/13/map:
-
-/usr/include/c++/13/bits/unique_lock.h:
-
-/usr/include/c++/13/mutex:
